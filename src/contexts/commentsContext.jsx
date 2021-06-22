@@ -7,6 +7,7 @@ export const CommentsProvider = (props) => {
   const [comments, setComments] = useState([
     {
       id: null,
+      tweetId: null,
       name: null,
       date: null,
       body: null,

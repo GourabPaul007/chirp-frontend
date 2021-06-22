@@ -3,11 +3,15 @@ import { TweetContext } from "../../../contexts/tweetContext";
 
 import { Typography, CardContent, Grid } from "@material-ui/core";
 import { useStyles_TweetBody } from "../_singleTweetStyles";
+import { CommentsContext } from "../../../contexts/commentsContext";
 
 const LikesAndComments = () => {
   const classes = useStyles_TweetBody();
 
   const [tweet, setTweet] = useContext(TweetContext);
+  const [comments, setComments] = useContext(CommentsContext);
+
+  console.log(comments);
 
   return (
     <>
@@ -17,7 +21,7 @@ const LikesAndComments = () => {
             {tweet.likes.length} <Typography className={classes.likesAndComments}>Likes</Typography>
           </Grid>
           <Grid item style={{ fontSize: 18, padding: 10 }}>
-            {tweet.commentsNumber}{" "}
+            {comments.length - 1}{" "}
             <Typography className={classes.likesAndComments}>Comments</Typography>
           </Grid>
         </Grid>

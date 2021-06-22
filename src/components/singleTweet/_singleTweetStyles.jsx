@@ -30,6 +30,17 @@ export const useStyles_TweetBody = makeStyles((theme) => ({
     alignSelf: "flex-start",
     textAlign: "left",
   },
+  username: {
+    color: "#777",
+    fontSize: 16,
+    fontWeight: 300,
+    marginRight: "auto",
+    marginTop: 6,
+    marginBottom: "auto",
+    marginLeft: 6,
+    alignSelf: "flex-start",
+    textAlign: "left",
+  },
   subHeader: {
     marginRight: "auto",
     alignSelf: "flex-start",

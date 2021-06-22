@@ -1,33 +1,14 @@
-import React from "react";
-import {
-  makeStyles,
-  Typography,
-  Box,
-  IconButton,
-  Avatar,
-  CardHeader,
-  Card,
-  CardContent,
-  CardActions,
-  TextField,
-  DialogActions,
-  Button,
-  Container,
-  Grid,
-} from "@material-ui/core";
-
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import CommentIcon from "@material-ui/icons/Comment";
-import RepeatIcon from "@material-ui/icons/Repeat";
-import ReplySection from "./commentSection/replies";
+import React, { useContext } from "react";
+import { Box } from "@material-ui/core";
 
 import { useStyles_CommentSection } from "../singleTweet/_singleTweetStyles";
 import EachComment from "./commentSection/eachComment";
+import { CommentsContext } from "../../contexts/commentsContext";
 
-const CommentSection = ({ comments, replies }) => {
+const CommentSection = ({ replies }) => {
   const classes = useStyles_CommentSection();
+
+  const [comments, setComments] = useContext(CommentsContext);
 
   return (
     <>
@@ -39,7 +20,7 @@ const CommentSection = ({ comments, replies }) => {
               {/* this card is the main comment */}
               <EachComment comment={comment} />
               {/* Replies for the comment if exists */}
-              <ReplySection replies={replies} comment={comment} />
+              {/* <ReplySection replies={replies} comment={comment} /> */}
             </Box>
           ) : null
         )}

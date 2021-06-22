@@ -7,8 +7,11 @@ export const TweetProvider = (props) => {
   const [tweet, setTweet] = useState({
     // ID is sent in props directly
     name: null,
+    username: null,
     body: null,
     likes: [],
+    saves: [],
+    comments: [],
     likesNumber: null,
     commentsNumber: null,
   });

@@ -109,19 +109,21 @@ const MakeTweet = () => {
                   <Grid item>
                     <TextField
                       id="filled-basic"
-                      variant="filled"
+                      variant="standard"
                       fullWidth
                       label="Name"
                       margin="none"
                       onChange={(e) => setName(e.target.value)}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item style={{ marginTop: 20 }}>
                     <TextField
                       id="filled-basic"
                       label="Whats Happening"
-                      variant="filled"
+                      variant="outlined"
                       multiline
+                      rows={5}
+                      rowsMax={10}
                       fullWidth
                       margin="none"
                       onChange={(e) => setBody(e.target.value)}

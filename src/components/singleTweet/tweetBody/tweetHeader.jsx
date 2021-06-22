@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { Grid, Link } from "@material-ui/core";
+
 import { useStyles_TweetBody } from "../_singleTweetStyles";
 
 import { Typography, IconButton, Avatar, CardHeader } from "@material-ui/core";
@@ -25,9 +27,20 @@ const TweetHeader = () => {
           </IconButton>
         }
         title={
-          <Typography variant="h5" className={classes.title} component="h3">
-            {tweet.name}
-          </Typography>
+          <Grid container>
+            <Grid item>
+              <Link target="_blank" href="https://www.google.com" style={{ color: "#fff" }}>
+                <Typography variant="h5" className={classes.title} component="h3">
+                  {tweet.name}
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Typography variant="h5" className={classes.username}>
+                @{tweet.username}
+              </Typography>
+            </Grid>
+          </Grid>
         }
         subheader={<Typography className={classes.subHeader}>{tweet.date}</Typography>}
       />

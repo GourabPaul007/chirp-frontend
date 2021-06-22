@@ -46,11 +46,12 @@ const SingleTweet = () => {
     // setting state of tweet from fetched data from server
     setTweet({
       name: tweet.name,
+      username: tweet.username,
       date: tweet.date,
       body: tweet.body,
       likes: tweet.likes,
-      likesNumber: tweet.likes.length,
-      commentsNumber: tweet.comments.length,
+      saves: tweet.saves,
+      comments: tweet.comments,
     });
     console.log(tweet);
     // setting the comments for tweet from fetched data from server
@@ -89,7 +90,7 @@ const SingleTweet = () => {
   return (
     <Container border={1} className={classes.root}>
       <TweetBody tweet={tweet} setTweet={setTweet} tweetId={tweetId} />
-      <CommentSection comments={comments} replies={replies} />
+      <CommentSection replies={replies} />
     </Container>
   );
 };
