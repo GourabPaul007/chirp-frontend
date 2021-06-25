@@ -18,13 +18,11 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 400,
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: 600,
+      maxWidth: 800,
     },
     minWidth: 400,
     margin: "auto",
-    padding: 0,
-    border: "2px solid #777",
-    background: "#000",
+    // border: "1px solid #777",
     // display: "flex",
   },
 }));

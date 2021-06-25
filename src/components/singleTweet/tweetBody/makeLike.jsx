@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
+import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import { IconButton } from "@material-ui/core";
 import axios from "axios";
 import { TweetContext } from "../../../contexts/tweetContext";
@@ -43,12 +44,12 @@ const MakeLike = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton
-        aria-label="add to favorites"
-        onClick={handleLike}
-        style={{ color: liked ? "#2196F3" : "#6e767d" }}
-      >
-        <FavoriteIcon />
+      <IconButton hover aria-label="add to favorites" onClick={handleLike}>
+        {liked ? (
+          <FavoriteRoundedIcon style={{ color: "#e0245e" }} />
+        ) : (
+          <FavoriteBorderRoundedIcon style={{ color: "#6e767d" }} />
+        )}
       </IconButton>
     </>
   );

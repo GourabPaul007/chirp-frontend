@@ -15,7 +15,7 @@ import {
 import axios from "axios";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import ShareIcon from "@material-ui/icons/Share";
+import MakeSend from "./newsFeed/makeSend";
 
 import MakeLike from "./newsFeed/makeLike";
 import MakeComment from "./newsFeed/makeComment";
@@ -27,18 +27,19 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 400,
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: 600,
+      maxWidth: 800,
     },
     minWidth: 400,
-    margin: "auto",
+    margin: 0,
     padding: 0,
     color: "#fff",
   },
   title: {
+    fontWeight: "bold",
+    marginRight: "auto",
+    alignSelf: "flex-start",
+    textAlign: "left",
     color: "#fff",
-    fontSize: 18,
-    fontWeight: "900",
-    align: "left",
   },
   body: {
     fontSize: 14,
@@ -47,25 +48,25 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     margin: "auto",
-    // background: "linear-gradient(45deg, #e91e63 50%, #ec407a 90%)",
-    background: "#000000",
+    border: "1px solid #777",
+    background: "#000",
     marginTop: 24,
     borderRadius: 15,
     color: "#fff",
   },
-  button: {
-    // marginLeft: "auto",
-    marginRight: 10,
-    color: "#fff",
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderRadius: 20,
-    textTransform: "none",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
+  // button: {
+  //   // marginLeft: "auto",
+  //   marginRight: 10,
+  //   color: "#fff",
+  //   paddingTop: 8,
+  //   paddingBottom: 8,
+  //   paddingLeft: 16,
+  //   paddingRight: 16,
+  //   borderRadius: 20,
+  //   textTransform: "none",
+  //   fontWeight: "bold",
+  //   fontSize: 16,
+  // },
 }));
 
 const NewsFeed = ({ tweets }) => {
@@ -92,17 +93,7 @@ const NewsFeed = ({ tweets }) => {
                   </IconButton>
                 }
                 title={
-                  <Typography
-                    variant="h5"
-                    style={{
-                      fontWeight: "bold",
-                      marginRight: "auto",
-                      alignSelf: "flex-start",
-                      textAlign: "left",
-                      color: "#fff",
-                    }}
-                    component="h3"
-                  >
+                  <Typography variant="h5" className={classes.title} component="h3">
                     {tweet.name}
                   </Typography>
                 }
@@ -145,9 +136,7 @@ const NewsFeed = ({ tweets }) => {
                     <MakeLike tweetId={tweet.id} />
                   </Grid>
                   <Grid item xs={3}>
-                    <IconButton aria-label="share" href={"/tweet/" + tweet.id}>
-                      <ShareIcon />
-                    </IconButton>
+                    <MakeSend />
                   </Grid>
                 </Grid>
               </CardActions>

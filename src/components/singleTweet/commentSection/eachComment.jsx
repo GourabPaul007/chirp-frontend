@@ -31,7 +31,7 @@ const EachComment = ({ comment, replies }) => {
   return (
     <>
       {/* this card is the main comment */}
-      <Card className={classes.commentCard}>
+      <Card className={classes.onlyComment}>
         <CardHeader
           style={{
             paddingBottom: 0,

@@ -41,10 +41,10 @@ const Main = (props) => {
 
   return (
     <>
-      {/* Component to create new tweet */}
-      <MakeTweet />
-
-      <NewsFeed tweets={tweets} />
+      <div style={{ margin: 0 }}>
+        <MakeTweet />
+        <NewsFeed tweets={tweets} />
+      </div>
     </>
   );
 };

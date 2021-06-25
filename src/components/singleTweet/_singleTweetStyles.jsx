@@ -3,19 +3,21 @@ import { makeStyles } from "@material-ui/core";
 // ========================================================================================
 // ========================================================================================
 // TweetBody Styles
+
 export const useStyles_TweetBody = makeStyles((theme) => ({
   card: {
-    margin: "auto",
     marginTop: 24,
+    marginBottom: 24,
+    paddingTop: 16,
     background: "#000000",
+    border: "1px solid #777",
+    borderRadius: 15,
   },
   dash: {
     border: "1px solid #2F3336",
     marginRight: 20,
     marginLeft: 20,
     borderTopStyle: "none",
-    marginTop: 0,
-    marginBottom: 0,
   },
   statusBlock: {
     border: "1px solid #2F3336",
@@ -31,7 +33,7 @@ export const useStyles_TweetBody = makeStyles((theme) => ({
     textAlign: "left",
   },
   username: {
-    color: "#777",
+    color: "#D9D9D9",
     fontSize: 16,
     fontWeight: 300,
     marginRight: "auto",
@@ -49,7 +51,7 @@ export const useStyles_TweetBody = makeStyles((theme) => ({
   },
   tweetBody: {
     textAlign: "left",
-    color: "#fff",
+    color: "#D9D9D9",
     fontSize: 23,
     paddingLeft: 5,
   },
@@ -62,25 +64,21 @@ export const useStyles_TweetBody = makeStyles((theme) => ({
 // ========================================================================================
 // ========================================================================================
 // CommentSection Styles
+
 export const useStyles_CommentSection = makeStyles({
-  commentBox: {
-    // border: "2px solid #fff",
-    borderTop: "1px solid #2F3336",
-    borderBottom: "1px solid #2F3336",
-    paddingTop: 0,
-    paddingBottom: 0,
-    marginTop: 0,
-    marginBottom: 0,
-    // borderRadius: 5,
-  },
-  commentCard: {
+  commentSection: {
     margin: "auto",
-    // borderTop: "1px solid #2F3336",
-    // borderBottom: "1px solid #2F3336",
-    // borderRadius: 15,
-    marginTop: 0,
-    marginBlock: 0,
-    background: "#000000",
+    border: "1px solid #777",
+    borderRadius: 15,
+  },
+  wholeCommentWithReplies: {
+    borderBottom: "1px solid #777",
+  },
+  onlyComment: {
+    /*each (comment with replies section) has its own border radius & stuff.
+    And it overlaps comment section border radius*/
+    borderRadius: 15,
+    backgroundColor: "#000",
   },
   commentTitle: {
     fontWeight: "bold",
@@ -101,7 +99,7 @@ export const useStyles_CommentSection = makeStyles({
     marginTop: 0,
     marginLeft: 55,
     paddingTop: 0,
-    color: "#fff",
+    color: "#D9D9D9",
     fontSize: 16,
   },
   icons: {
@@ -114,6 +112,7 @@ export const useStyles_CommentSection = makeStyles({
 // ========================================================================================
 // ========================================================================================
 // ReplySection Styles
+
 export const useStyles_ReplySection = makeStyles({
   commentBox: {
     // border: "2px solid #fff",

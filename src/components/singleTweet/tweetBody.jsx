@@ -2,16 +2,13 @@ import React, { useContext, useState } from "react";
 import { Typography, IconButton, Card, CardContent, CardActions, Grid } from "@material-ui/core";
 import { useStyles_TweetBody } from "./_singleTweetStyles";
 
-import ShareIcon from "@material-ui/icons/Share";
-import RepeatIcon from "@material-ui/icons/Repeat";
-
-import axios from "axios";
-
 import { TweetContext } from "../../contexts/tweetContext";
 import LikesAndComments from "./tweetBody/likes&Comments";
 import TweetHeader from "./tweetBody/tweetHeader";
 import MakeComment from "./tweetBody/makeComment";
 import MakeLike from "./tweetBody/makeLike";
+import MakeSave from "./tweetBody/makeSave";
+import MakeSend from "./tweetBody/makeSend";
 
 const TweetBody = ({ tweetId }) => {
   const classes = useStyles_TweetBody();
@@ -43,27 +40,13 @@ const TweetBody = ({ tweetId }) => {
                 <MakeComment tweetId={tweetId} /> {/*Comment Component to Make Comment*/}
               </Grid>
               <Grid item xs={3}>
-                <IconButton
-                  aria-label="share"
-                  // onClick={handleLike}
-                  // style={{ color: liked ? "#2196F3" : "#6e767d" }}
-                >
-                  <RepeatIcon />
-                </IconButton>
+                <MakeSave tweetId={tweetId} />
               </Grid>
               <Grid item xs={3}>
                 <MakeLike tweetId={tweetId} />
               </Grid>
               <Grid item xs={3}>
-                <form>
-                  <IconButton
-                    aria-label="share"
-                    // onClick={handleLike}
-                    // style={{ color: liked ? "#2196F3" : "#6e767d" }}
-                  >
-                    <ShareIcon />
-                  </IconButton>
-                </form>
+                <MakeSend />
               </Grid>
             </Grid>
           </CardActions>

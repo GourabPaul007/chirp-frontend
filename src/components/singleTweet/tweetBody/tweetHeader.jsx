@@ -29,7 +29,7 @@ const TweetHeader = () => {
         title={
           <Grid container>
             <Grid item>
-              <Link target="_blank" href="https://www.google.com" style={{ color: "#fff" }}>
+              <Link target="_blank" href="https://www.google.com" style={{ color: "#D9D9D9" }}>
                 <Typography variant="h5" className={classes.title} component="h3">
                   {tweet.name}
                 </Typography>

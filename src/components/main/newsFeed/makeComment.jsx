@@ -5,7 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import CommentIcon from "@material-ui/icons/Comment";
+import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRounded";
 import { IconButton, makeStyles } from "@material-ui/core";
 import axios from "axios";
 import { TweetContext } from "../../../contexts/tweetContext";
@@ -87,13 +87,8 @@ const MakeComment = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-        // style={{ color: liked ? "#2196F3" : "#6e767d" }}
-      >
-        <CommentIcon />
+      <IconButton variant="outlined" onClick={handleClickOpen} style={{ color: "#6e767d" }}>
+        <ChatBubbleOutlineRoundedIcon />
       </IconButton>
       {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open form dialog

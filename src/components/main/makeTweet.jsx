@@ -19,24 +19,29 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 400,
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: 600,
+      maxWidth: 800,
     },
     minWidth: 400,
-    margin: "auto",
+    margin: 0,
     padding: 0,
   },
   title: {
+    color: "#fff",
     fontSize: 48,
+    fontWeight: "bold",
+    marginRight: "auto",
+    alignSelf: "flex-start",
+    textAlign: "left",
   },
   card: {
     // borderBottom: "1px solid #777",
     // background: "linear-gradient(45deg, #e91e63 50%, #ec407a 90%)",
+    border: "1px solid #777",
     background: "#000000",
     marginTop: 20,
     borderRadius: 15,
   },
   tweetButton: {
-    // marginLeft: "auto",
     marginRight: 10,
     backgroundColor: "#2196F3",
     color: "#fff",
@@ -44,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 8,
     paddingLeft: 16,
     paddingRight: 16,
-    borderRadius: 20,
+    borderRadius: 25,
     textTransform: "none",
     fontWeight: "bold",
     fontSize: 16,
@@ -133,7 +138,7 @@ const MakeTweet = () => {
                 <Grid container direction="row" justify="flex-end" alignItems="center">
                   <Grid item>
                     <Button className={classes.tweetButton} onClick={handleClick}>
-                      Tweet
+                      Chirp
                     </Button>
                   </Grid>
                 </Grid>
