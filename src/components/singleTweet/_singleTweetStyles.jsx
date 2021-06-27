@@ -2,67 +2,6 @@ import { makeStyles } from "@material-ui/core";
 
 // ========================================================================================
 // ========================================================================================
-// TweetBody Styles
-
-export const useStyles_TweetBody = makeStyles((theme) => ({
-  card: {
-    marginTop: 24,
-    marginBottom: 24,
-    paddingTop: 16,
-    background: "#000000",
-    border: "1px solid #777",
-    borderRadius: 15,
-  },
-  dash: {
-    border: "1px solid #2F3336",
-    marginRight: 20,
-    marginLeft: 20,
-    borderTopStyle: "none",
-  },
-  statusBlock: {
-    border: "1px solid #2F3336",
-    borderLeftStyle: "none",
-    borderRightStyle: "none",
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  title: {
-    fontWeight: "bold",
-    marginRight: "auto",
-    alignSelf: "flex-start",
-    textAlign: "left",
-  },
-  username: {
-    color: "#D9D9D9",
-    fontSize: 16,
-    fontWeight: 300,
-    marginRight: "auto",
-    marginTop: 6,
-    marginBottom: "auto",
-    marginLeft: 6,
-    alignSelf: "flex-start",
-    textAlign: "left",
-  },
-  subHeader: {
-    marginRight: "auto",
-    alignSelf: "flex-start",
-    textAlign: "left",
-    color: "#777",
-  },
-  tweetBody: {
-    textAlign: "left",
-    color: "#D9D9D9",
-    fontSize: 23,
-    paddingLeft: 5,
-  },
-  likesAndComments: {
-    display: "inline-block",
-    color: "#777",
-  },
-}));
-
-// ========================================================================================
-// ========================================================================================
 // CommentSection Styles
 
 export const useStyles_CommentSection = makeStyles({
@@ -97,7 +36,7 @@ export const useStyles_CommentSection = makeStyles({
   commentBody: {
     textAlign: "left",
     marginTop: 0,
-    marginLeft: 55,
+    marginLeft: 56,
     paddingTop: 0,
     color: "#D9D9D9",
     fontSize: 16,

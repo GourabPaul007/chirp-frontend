@@ -1,14 +1,45 @@
 import React, { useContext } from "react";
-import { Grid, Link } from "@material-ui/core";
-
-import { useStyles_TweetBody } from "../_singleTweetStyles";
+import { Grid, Link, makeStyles } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
 
 import { Typography, IconButton, Avatar, CardHeader } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { TweetContext } from "../../../contexts/tweetContext";
 
+import timeConverter from "../../../utils/timeConverter";
+
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    backgroundColor: red[500],
+  },
+  title: {
+    fontWeight: "bold",
+    marginRight: "auto",
+    alignSelf: "flex-start",
+    textAlign: "left",
+    color: "#D9D9D9",
+  },
+  username: {
+    color: "#D9D9D9",
+    fontSize: 16,
+    fontWeight: 300,
+    marginRight: "auto",
+    marginTop: 6,
+    marginBottom: "auto",
+    marginLeft: 6,
+    alignSelf: "flex-start",
+    textAlign: "left",
+  },
+  subHeader: {
+    marginRight: "auto",
+    alignSelf: "flex-start",
+    textAlign: "left",
+    color: "#777",
+  },
+}));
+
 const TweetHeader = () => {
-  const classes = useStyles_TweetBody();
+  const classes = useStyles();
 
   const [tweet, setTweet] = useContext(TweetContext);
 
@@ -42,7 +73,9 @@ const TweetHeader = () => {
             </Grid>
           </Grid>
         }
-        subheader={<Typography className={classes.subHeader}>{tweet.date}</Typography>}
+        subheader={
+          <Typography className={classes.subHeader}>{timeConverter(tweet.date)}</Typography>
+        }
       />
     </>
   );

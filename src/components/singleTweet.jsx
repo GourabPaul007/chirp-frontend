@@ -1,29 +1,30 @@
 // Parent is App.js / Depends on the tweet URL
 // Children are TweetBody & CommentSection
 
-import React, { useContext, useEffect, useState } from "react";
-import { makeStyles, Container } from "@material-ui/core";
+import React, { useContext, useEffect, useState, Suspense } from "react";
+import { makeStyles, Container, CssBaseline } from "@material-ui/core";
 import axios from "axios";
 
 import { useParams } from "react-router";
 import TweetBody from "./singleTweet/tweetBody";
-import CommentSection from "./singleTweet/commentSection";
 import { TweetContext } from "../contexts/tweetContext";
 import { CommentsContext } from "../contexts/commentsContext";
 import { RepliesContext } from "../contexts/repliesContext";
+const CommentSection = React.lazy(() => import("./singleTweet/commentSection"));
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  rootSingleTweet: {
     [theme.breakpoints.down("sm")]: {
-      maxWidth: 400,
+      marginLeft: 0,
+      // marginRight: 8,
+      paddingLeft: 0,
+      paddingRight: 8,
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: 800,
+      // maxWidth: 800,
     },
-    minWidth: 400,
-    margin: "auto",
-    // border: "1px solid #777",
-    // display: "flex",
+    marginTop: 0,
+    paddingTop: 0,
   },
 }));
 
@@ -86,9 +87,14 @@ const SingleTweet = () => {
   }, []);
 
   return (
-    <Container border={1} className={classes.root}>
+    <Container className={classes.rootSingleTweet}>
       <TweetBody tweet={tweet} setTweet={setTweet} tweetId={tweetId} />
-      <CommentSection replies={replies} />
+      {/* Render Comments if they exists */}
+      {comments.length > 1 ? (
+        <Suspense fallback={<div>Loading...</div>}>
+          <CommentSection replies={replies} />
+        </Suspense>
+      ) : null}
     </Container>
   );
 };

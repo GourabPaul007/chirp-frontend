@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       maxWidth: 800,
     },
-    minWidth: 400,
+    // minWidth: 400,
     margin: 0,
     padding: 0,
   },
@@ -34,10 +34,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   card: {
-    // borderBottom: "1px solid #777",
-    // background: "linear-gradient(45deg, #e91e63 50%, #ec407a 90%)",
     border: "1px solid #777",
-    background: "#000000",
+    background: "#000",
     marginTop: 20,
     borderRadius: 15,
   },
@@ -66,31 +64,19 @@ const MakeTweet = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     // setName("paul");
-
-    const date = new Date();
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const month = months[date.getMonth()];
-    const time = `${month} ${day}, ${year}`;
-    console.log(time);
+    const likes = [];
+    const saves = [];
+    const comments = [];
 
     // Sending Post request to api to post tweet
     if (name && body) {
-      await axios.post("http://localhost:5000/api/tweets/new", { name, body, date });
+      await axios.post("http://localhost:5000/api/tweets/new", {
+        name,
+        body,
+        likes,
+        saves,
+        comments,
+      });
     } else {
       console.log("please provide tweet name & body");
     }

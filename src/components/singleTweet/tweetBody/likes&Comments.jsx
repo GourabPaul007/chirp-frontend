@@ -1,17 +1,30 @@
 import React, { useContext } from "react";
 import { TweetContext } from "../../../contexts/tweetContext";
 
-import { Typography, CardContent, Grid } from "@material-ui/core";
-import { useStyles_TweetBody } from "../_singleTweetStyles";
+import { Typography, CardContent, Grid, makeStyles } from "@material-ui/core";
 import { CommentsContext } from "../../../contexts/commentsContext";
 
+const useStyles = makeStyles((theme) => ({
+  // likes & comments view section border stuff
+  statusBlock: {
+    border: "1px solid #2F3336",
+    // borderRadius: 10,
+    borderLeftStyle: "none",
+    borderRightStyle: "none",
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  likesAndComments: {
+    display: "inline-block",
+    color: "#777",
+  },
+}));
+
 const LikesAndComments = () => {
-  const classes = useStyles_TweetBody();
+  const classes = useStyles();
 
   const [tweet, setTweet] = useContext(TweetContext);
   const [comments, setComments] = useContext(CommentsContext);
-
-  console.log(comments);
 
   return (
     <>

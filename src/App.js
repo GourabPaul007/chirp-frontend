@@ -1,4 +1,4 @@
-import { createMuiTheme, CssBaseline, Grid } from "@material-ui/core";
+import { createMuiTheme, CssBaseline, Grid, makeStyles } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
@@ -11,7 +11,17 @@ import { CommentsProvider } from "./contexts/commentsContext";
 import { TweetContext, TweetProvider } from "./contexts/tweetContext";
 import { RepliesProvider } from "./contexts/repliesContext";
 
+const useStyles = makeStyles((theme) => ({
+  pcBanner: {
+    [theme.breakpoints.down("xs")]: {
+      // display: "none",
+    },
+  },
+}));
+
 function App() {
+  const classes = useStyles();
+
   return (
     <>
       <TweetProvider>
@@ -30,14 +40,16 @@ function App() {
               <CssBaseline />
               <div className="App">
                 <CssBaseline />
-                <BrowserRouter>
-                  <Grid container spacing={0}>
-                    {/* Banner Grid - left hand side */}
-                    <Grid item xs={4}>
-                      <Banner />
-                    </Grid>
+                {/* <div style={{ marginTop: 8 }}>&nbsp;</div> */}
+                <Grid container spacing={0}>
+                  {/* Banner Grid - left hand side */}
+
+                  <Grid item xs={2} sm={4} lg={4} className={classes.pcBanner}>
+                    <Banner />
+                  </Grid>
+                  <BrowserRouter>
                     {/* Middle Grid - news feed & make tweet */}
-                    <Grid item xs={5}>
+                    <Grid item xs={10} sm={6} lg={5}>
                       <Route path="/" exact>
                         <Main />
                       </Route>
@@ -45,9 +57,13 @@ function App() {
                         <SingleTweet />
                       </Route>
                     </Grid>
-                    <Grid item xs={3}></Grid>
-                  </Grid>
-                </BrowserRouter>
+                  </BrowserRouter>
+                  {/* Right Grid - functionality isn't fixed yet */}
+                  <Grid item xs={false} sm={2} lg={3}></Grid>
+                </Grid>
+
+                {/* for blank content, it will fill the page when theres no comment */}
+                <div style={{ background: "#000", height: 500 }}>&nbsp;</div>
               </div>
             </ThemeProvider>
           </RepliesProvider>

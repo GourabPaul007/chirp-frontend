@@ -9,7 +9,6 @@ import { TweetContext } from "../../../contexts/tweetContext";
 const useStyles = makeStyles({
   saveButton: {
     "&:hover": {
-      color: "#17bf63",
       backgroundColor: "#17bf63",
     },
   },
@@ -47,6 +46,7 @@ const MakeSave = ({ tweetId }) => {
     setTweet({
       id: tweetData.id,
       name: tweetData.name,
+      username: tweetData.username,
       date: tweetData.date,
       body: tweetData.body,
       likes: tweetData.likes,
@@ -57,7 +57,11 @@ const MakeSave = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton hover className={classes.saveButton} onClick={handleSave}>
+      <IconButton
+        //  hover
+        className={classes.saveButton}
+        onClick={handleSave}
+      >
         {saved ? (
           <BookmarkRoundedIcon style={{ color: "#17bf63" }} />
         ) : (

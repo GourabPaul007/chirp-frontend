@@ -57,7 +57,7 @@ const MakeSave = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton hover className={classes.saveButton} onClick={handleSave}>
+      <IconButton className={classes.saveButton} onClick={handleSave}>
         {saved ? (
           <BookmarkRoundedIcon style={{ color: "#17bf63" }} />
         ) : (

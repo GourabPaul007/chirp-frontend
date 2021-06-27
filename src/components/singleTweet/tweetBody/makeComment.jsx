@@ -12,8 +12,6 @@ import { TweetContext } from "../../../contexts/tweetContext";
 import { CommentsContext } from "../../../contexts/commentsContext";
 
 const MakeComment = ({ tweetId }) => {
-  // Getting Tweet Context
-  const [tweet, setTweet] = useContext(TweetContext);
   const [comments, setComments] = useContext(CommentsContext);
 
   const [open, setOpen] = useState(false);

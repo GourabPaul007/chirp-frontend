@@ -59,12 +59,7 @@ const MakeLike = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton
-        hover
-        className={classes.likeButton}
-        aria-label="add to favorites"
-        onClick={handleLike}
-      >
+      <IconButton className={classes.likeButton} aria-label="add to favorites" onClick={handleLike}>
         {liked ? (
           <FavoriteRoundedIcon style={{ color: "#e0245e" }} />
         ) : (

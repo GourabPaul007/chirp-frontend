@@ -1,11 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
-import { IconButton } from "@material-ui/core";
+import { IconButton, makeStyles } from "@material-ui/core";
+
 import axios from "axios";
 import { TweetContext } from "../../../contexts/tweetContext";
 
+const useStyles = makeStyles({
+  likeButton: {
+    "&:hover": {
+      backgroundColor: "#e0245e",
+    },
+  },
+});
+
 const MakeLike = ({ tweetId }) => {
+  const classes = useStyles();
+
   const [tweet, setTweet] = useContext(TweetContext);
   const [liked, setLiked] = useState(tweet.likes.includes("paul"));
   console.log(tweet.likes.includes("paul"));
@@ -34,6 +45,7 @@ const MakeLike = ({ tweetId }) => {
     const tweetData = data.data;
     setTweet({
       name: tweetData.name,
+      username: tweetData.username,
       date: tweetData.date,
       body: tweetData.body,
       likes: tweetData.likes,
@@ -44,7 +56,11 @@ const MakeLike = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton hover aria-label="add to favorites" onClick={handleLike}>
+      <IconButton
+        //  hover
+        className={classes.likeButton}
+        onClick={handleLike}
+      >
         {liked ? (
           <FavoriteRoundedIcon style={{ color: "#e0245e" }} />
         ) : (
