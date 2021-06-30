@@ -6,10 +6,10 @@ import { TweetContext } from "../../contexts/tweetContext";
 import GoBack from "./tweetBody/goBack";
 import TweetHeader from "./tweetBody/tweetHeader";
 import LikesAndComments from "./tweetBody/likes&Comments";
-import MakeComment from "./tweetBody/makeComment";
-import MakeLike from "./tweetBody/makeLike";
-import MakeSave from "./tweetBody/makeSave";
-import MakeSend from "./tweetBody/makeSend";
+import MakeComment from "../tweetActions/makeComment";
+import MakeSave from "../tweetActions/makeSave";
+import MakeLike from "../tweetActions/makeLike";
+import MakeSend from "../tweetActions/makeSend";
 
 const useStyles = makeStyles((theme) => ({
   card: {

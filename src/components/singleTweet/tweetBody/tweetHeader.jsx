@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#D9D9D9",
   },
   username: {
-    color: "#D9D9D9",
+    color: "#777",
     fontSize: 16,
     fontWeight: 300,
     marginRight: "auto",

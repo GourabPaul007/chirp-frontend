@@ -4,51 +4,27 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Button, Container, SvgIcon } from "@material-ui/core";
 
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import PersonIcon from "@material-ui/icons/Person";
-import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
+import Home from "./banner/home";
+import Bookmarks from "./banner/bookmarks";
+import Likes from "./banner/likes";
+import Profile from "./banner/profile";
+import More from "./banner/more";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "sticky",
     paddingLeft: 8,
     paddingRight: 8,
-    marginTop: 8,
+    marginTop: 12,
     // maxWidth: 350, //because otherwise it overlaps newsfeed
   },
   gridItems: {
     marginRight: "auto",
   },
   nav: {
-    [theme.breakpoints.up("md")]: { marginLeft: 150 },
+    [theme.breakpoints.up("md")]: { marginLeft: 200 },
     [theme.breakpoints.down("md")]: { marginLeft: 50, paddingRight: 0 },
     [theme.breakpoints.down("sm")]: { marginLeft: 8 },
-  },
-  button: {
-    [theme.breakpoints.down("sm")]: {
-      paddingTop: 8,
-      paddingBottom: 8,
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-    minWidth: 40,
-    textTransform: "none",
-    marginTop: 12,
-    marginBottom: 0,
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingLeft: 24,
-    paddingRight: 24,
-    borderRadius: 30,
-    background: "#000",
-    fontWeight: "bold",
-    textAlign: "left",
-    "&:hover": {
-      backgroundColor: "#17bf63",
-    },
   },
   tweetButton: {
     [theme.breakpoints.down("md")]: {
@@ -67,20 +43,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 80,
     height: 50,
     borderRadius: 30,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#0288D1",
     textTransform: "none",
-  },
-  btnIcons: {
-    padding: 0,
-    margin: 0,
-  },
-  btnText: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-    marginLeft: 20,
-    fontSize: 20,
-    fontWeight: "bold",
   },
   tweetButtonIcon: {
     [theme.breakpoints.up("md")]: {
@@ -115,48 +79,20 @@ const Banner = () => {
             alignItems="flex-start"
           >
             <Grid item xs={12} className={classes.gridItems}>
-              <Button className={classes.button}>
-                <HomeRoundedIcon className={classes.btnIcons} />
-                <Typography component="h3" className={classes.btnText}>
-                  Home
-                </Typography>
-              </Button>
+              <Home />
+            </Grid>
+            <Grid item xs={12} className={classes.gridItems}>
+              <Bookmarks />
+            </Grid>
+            <Grid item xs={12} className={classes.gridItems}>
+              <Likes />
+            </Grid>
+            <Grid item xs={12} className={classes.gridItems}>
+              <Profile />
             </Grid>
 
             <Grid item xs={12} className={classes.gridItems}>
-              <Button className={classes.button}>
-                <BookmarkBorderIcon className={classes.btnIcons} />
-                <Typography component="h3" className={classes.btnText}>
-                  Bookmarks
-                </Typography>
-              </Button>
-            </Grid>
-
-            <Grid item xs={12} className={classes.gridItems}>
-              <Button className={classes.button}>
-                <FavoriteBorderIcon className={classes.btnIcons} />
-                <Typography component="h3" className={classes.btnText}>
-                  Likes
-                </Typography>
-              </Button>
-            </Grid>
-
-            <Grid item xs={12} className={classes.gridItems}>
-              <Button className={classes.button}>
-                <PersonIcon className={classes.btnIcons} />
-                <Typography component="h3" className={classes.btnText}>
-                  Profile
-                </Typography>
-              </Button>
-            </Grid>
-
-            <Grid item xs={12} className={classes.gridItems}>
-              <Button className={classes.button}>
-                <MoreHorizIcon className={classes.btnIcons} />
-                <Typography component="h3" className={classes.btnText}>
-                  More
-                </Typography>
-              </Button>
+              <More />
             </Grid>
             <Grid item xs={12}>
               <Button className={classes.tweetButton}>

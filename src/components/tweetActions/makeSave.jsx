@@ -4,7 +4,7 @@ import { makeStyles, IconButton } from "@material-ui/core";
 import axios from "axios";
 import BookmarkBorderRoundedIcon from "@material-ui/icons/BookmarkBorderRounded";
 import BookmarkRoundedIcon from "@material-ui/icons/BookmarkRounded";
-import { TweetContext } from "../../../contexts/tweetContext";
+import { TweetContext } from "../../contexts/tweetContext";
 
 const useStyles = makeStyles({
   saveButton: {

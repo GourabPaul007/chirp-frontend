@@ -1,15 +1,24 @@
 import React, { useContext } from "react";
-import { Box } from "@material-ui/core";
-
-import { useStyles_CommentSection } from "../singleTweet/_singleTweetStyles";
+import { Box, makeStyles } from "@material-ui/core";
 
 import { CommentsContext } from "../../contexts/commentsContext";
 
 import EachComment from "./commentSection/eachComment";
 import ReplySection from "./commentSection/replies";
 
+const useStyles = makeStyles({
+  commentSection: {
+    margin: "auto",
+    border: "1px solid #777",
+    borderRadius: 15,
+  },
+  wholeCommentWithReplies: {
+    borderBottom: "1px solid #777",
+  },
+});
+
 const CommentSection = ({ replies }) => {
-  const classes = useStyles_CommentSection();
+  const classes = useStyles();
 
   const [comments, setComments] = useContext(CommentsContext);
 

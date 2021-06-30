@@ -6,22 +6,14 @@ import "./App.css";
 import Main from "./components/main";
 import SingleTweet from "./components/singleTweet";
 import Banner from "./components/banner";
+import BookmarksPage from "./components/bannerComponents/bookmarksPage";
+import LikesPage from "./components/bannerComponents/likesPage";
 
 import { CommentsProvider } from "./contexts/commentsContext";
 import { TweetContext, TweetProvider } from "./contexts/tweetContext";
 import { RepliesProvider } from "./contexts/repliesContext";
 
-const useStyles = makeStyles((theme) => ({
-  pcBanner: {
-    [theme.breakpoints.down("xs")]: {
-      // display: "none",
-    },
-  },
-}));
-
 function App() {
-  const classes = useStyles();
-
   return (
     <>
       <TweetProvider>
@@ -40,13 +32,12 @@ function App() {
               <CssBaseline />
               <div className="App">
                 <CssBaseline />
-                {/* <div style={{ marginTop: 8 }}>&nbsp;</div> */}
                 <Grid container spacing={0}>
                   {/* Banner Grid - left hand side */}
-
-                  <Grid item xs={2} sm={4} lg={4} className={classes.pcBanner}>
+                  <Grid item xs={2} sm={4} lg={4}>
                     <Banner />
                   </Grid>
+
                   <BrowserRouter>
                     {/* Middle Grid - news feed & make tweet */}
                     <Grid item xs={10} sm={6} lg={5}>
@@ -56,8 +47,15 @@ function App() {
                       <Route path={`/tweet/:tweetId`}>
                         <SingleTweet />
                       </Route>
+                      <Route path={`/:username/bookmarks`}>
+                        <BookmarksPage />
+                      </Route>
+                      <Route path={`/:username/likes`}>
+                        <LikesPage />
+                      </Route>
                     </Grid>
                   </BrowserRouter>
+
                   {/* Right Grid - functionality isn't fixed yet */}
                   <Grid item xs={false} sm={2} lg={3}></Grid>
                 </Grid>

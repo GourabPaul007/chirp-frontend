@@ -8,8 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRounded";
 import { IconButton } from "@material-ui/core";
 import axios from "axios";
-import { TweetContext } from "../../../contexts/tweetContext";
-import { CommentsContext } from "../../../contexts/commentsContext";
+import { CommentsContext } from "../../contexts/commentsContext";
 
 const MakeComment = ({ tweetId }) => {
   const [comments, setComments] = useContext(CommentsContext);

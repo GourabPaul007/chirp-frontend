@@ -61,6 +61,7 @@ const SingleTweet = () => {
           id: comment.id,
           tweetId: comment.tweetId,
           name: comment.name,
+          username: comment.username,
           date: comment.date,
           body: comment.body,
           likes: comment.likes,

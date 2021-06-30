@@ -6,7 +6,8 @@ import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 const useStyles = makeStyles({
   goBack: {
     display: "flex",
-    padding: 0,
+    paddingBottom: 4,
+    paddingTop: 4,
     margin: 0,
     marginBottom: 16,
     background: "#000000",
@@ -26,7 +27,7 @@ const GoBack = () => {
 
   return (
     <CardContent className={classes.goBack}>
-      <IconButton style={{ marginLeft: 8 }} onClick={handleBack}>
+      <IconButton style={{ marginLeft: 0 }} onClick={handleBack}>
         <ArrowBackRoundedIcon />
       </IconButton>
       <Typography style={{ marginLeft: 8, paddingTop: 8, fontSize: 20 }}>Back</Typography>

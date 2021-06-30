@@ -1,17 +1,17 @@
-import React, { useState } from "react";
 import {
-  makeStyles,
-  Typography,
-  IconButton,
-  Avatar,
-  CardHeader,
-  Card,
-  CardContent,
-  CardActions,
   Container,
   Grid,
+  Card,
+  makeStyles,
+  CardContent,
+  CardHeader,
+  CardActions,
   CardActionArea,
+  Typography,
+  Avatar,
+  IconButton,
 } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
@@ -22,20 +22,25 @@ import MakeSend from "../tweetActions/makeSend";
 
 import timeConverter from "../../utils/timeConverter";
 
+import axios from "axios";
+import { red } from "@material-ui/core/colors";
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    [theme.breakpoints.down("sm")]: {
-      maxWidth: 400,
-      marginRight: 12,
-    },
-    [theme.breakpoints.up("md")]: {
-      maxWidth: 800,
-    },
-    // minWidth: 400,
-    margin: 0,
-    padding: 0,
+  card: {
+    marginTop: 24,
+    marginBottom: 24,
+    background: "#000000",
+    border: "1px solid #777",
+    borderRadius: 15,
+  },
+  tweetBody: {
+    textAlign: "left",
     color: "#D9D9D9",
-    backgroundColor: "#000",
+    fontSize: 23,
+    paddingLeft: 8,
+  },
+  avatar: {
+    backgroundColor: red[500],
   },
   title: {
     fontWeight: "bold",
@@ -44,26 +49,80 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     color: "#D9D9D9",
   },
-  body: {
-    fontSize: 14,
-    align: "left",
-    color: "#D9D9D9",
+  username: {
+    color: "#777",
+    fontSize: 16,
+    fontWeight: 300,
+    marginRight: "auto",
+    marginTop: 6,
+    marginBottom: "auto",
+    marginLeft: 6,
+    alignSelf: "flex-start",
+    textAlign: "left",
   },
-  card: {
-    margin: "auto",
-    border: "1px solid #777",
-    background: "#000",
-    marginTop: 24,
-    borderRadius: 15,
-    color: "#D9D9D9",
+  subHeader: {
+    marginRight: "auto",
+    alignSelf: "flex-start",
+    textAlign: "left",
+    color: "#777",
+  },
+  // likes & comments view section border stuff
+  statusBlock: {
+    border: "1px solid #2F3336",
+    // borderRadius: 10,
+    borderLeftStyle: "none",
+    borderRightStyle: "none",
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  likesAndComments: {
+    display: "inline-block",
+    color: "#777",
   },
 }));
 
-const NewsFeed = ({ tweets }) => {
+const BookmarksPage = () => {
   const classes = useStyles();
+
+  const [tweets, setTweets] = useState([
+    {
+      id: null,
+      name: null,
+      username: null,
+      body: null,
+      date: null,
+      likes: [],
+      saves: [],
+      comments: [],
+    },
+  ]);
+
+  useEffect(async () => {
+    const url = `http://localhost:5000/api/banner/paul/bookmarks`;
+    const data = await axios.get(url);
+
+    for (let i = 0; i < data.data.length; i++) {
+      //element is a tweet object i.e. its the whole tweet
+      let element = data.data[i];
+      setTweets((tweets) => [
+        ...tweets,
+        {
+          id: element.id,
+          name: element.name,
+          username: element.username,
+          body: element.body,
+          date: element.date,
+          likes: element.likes,
+          saves: element.saves,
+          comments: element.comments,
+        },
+      ]);
+    }
+  }, []);
+
   return (
     <>
-      <Container border={1} className={classes.root}>
+      <Container>
         {tweets.map((tweet) =>
           tweet.id ? (
             <Card key={tweet.id} className={classes.card}>
@@ -138,4 +197,4 @@ const NewsFeed = ({ tweets }) => {
   );
 };
 
-export default NewsFeed;
+export default BookmarksPage;

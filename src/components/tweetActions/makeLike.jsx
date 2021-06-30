@@ -1,18 +1,14 @@
-// News Feed MakeLike
-
 import React, { useContext, useEffect, useState } from "react";
-
-import { IconButton, makeStyles } from "@material-ui/core";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
+import { IconButton, makeStyles } from "@material-ui/core";
 
 import axios from "axios";
-import { TweetContext } from "../../../contexts/tweetContext";
+import { TweetContext } from "../../contexts/tweetContext";
 
 const useStyles = makeStyles({
   likeButton: {
     "&:hover": {
-      color: "#e0245e",
       backgroundColor: "#e0245e",
     },
   },
@@ -41,14 +37,15 @@ const MakeLike = ({ tweetId }) => {
       id, //tweetId to check on backend if it matches in database
       name, //name to include in the likes array in backend
     });
+    console.log(`${liked} request sent`);
     setLiked(!liked);
-    console.log(tweet);
 
     // Getting tweet from server after updating the tweet, this problem took me 3 days, fml
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);
     const tweetData = data.data;
     setTweet({
       name: tweetData.name,
+      username: tweetData.username,
       date: tweetData.date,
       body: tweetData.body,
       likes: tweetData.likes,
@@ -59,7 +56,11 @@ const MakeLike = ({ tweetId }) => {
 
   return (
     <>
-      <IconButton className={classes.likeButton} aria-label="add to favorites" onClick={handleLike}>
+      <IconButton
+        //  hover
+        className={classes.likeButton}
+        onClick={handleLike}
+      >
         {liked ? (
           <FavoriteRoundedIcon style={{ color: "#e0245e" }} />
         ) : (
