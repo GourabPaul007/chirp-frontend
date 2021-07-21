@@ -11,6 +11,7 @@ import {
   Container,
   Grid,
   CardActionArea,
+  Link,
 } from "@material-ui/core";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -43,6 +44,23 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "flex-start",
     textAlign: "left",
     color: "#D9D9D9",
+  },
+  username: {
+    color: "#777",
+    fontSize: 16,
+    fontWeight: 300,
+    marginRight: "auto",
+    marginTop: 6,
+    marginBottom: "auto",
+    marginLeft: 6,
+    alignSelf: "flex-start",
+    textAlign: "left",
+  },
+  subHeader: {
+    marginRight: "auto",
+    alignSelf: "flex-start",
+    textAlign: "left",
+    color: "#777",
   },
   body: {
     fontSize: 14,
@@ -79,9 +97,24 @@ const NewsFeed = ({ tweets }) => {
                   </IconButton>
                 }
                 title={
-                  <Typography variant="h5" className={classes.title} component="h3">
-                    {tweet.name}
-                  </Typography>
+                  <Grid container>
+                    <Grid item>
+                      <Link
+                        target="_blank"
+                        href="https://www.google.com"
+                        style={{ color: "#D9D9D9" }}
+                      >
+                        <Typography variant="h5" className={classes.title} component="h3">
+                          {tweet.name}
+                        </Typography>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h5" className={classes.username}>
+                        @{tweet.username}
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 }
                 subheader={
                   <Typography
@@ -126,7 +159,7 @@ const NewsFeed = ({ tweets }) => {
                     <MakeLike tweetId={tweet.id} />
                   </Grid>
                   <Grid item xs={3}>
-                    <MakeSend />
+                    <MakeSend tweetId={tweet.id} />
                   </Grid>
                 </Grid>
               </CardActions>

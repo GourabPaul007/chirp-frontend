@@ -40,37 +40,40 @@ const SingleTweet = () => {
   useEffect(async () => {
     const URL = `http://localhost:5000/api/tweets/${tweetId}`;
     const data = await axios.get(URL); //fetching the tweet from url
-    const tweet = data.data;
+    const t = data.data;
+    console.log(t);
 
     // setting state of tweet from fetched data from server
     setTweet({
-      name: tweet.name,
-      username: tweet.username,
-      date: tweet.date,
-      body: tweet.body,
-      likes: tweet.likes,
-      saves: tweet.saves,
-      comments: tweet.comments,
+      name: t.name,
+      username: t.username,
+      date: t.date,
+      body: t.body,
+      likes: t.likes,
+      saves: t.saves,
+      comments: t.comments,
     });
     console.log(tweet);
     // setting the comments for tweet from fetched data from server
-    tweet.comments.forEach((comment) => {
-      setComments((comments) => [
-        ...comments,
-        {
-          id: comment.id,
-          tweetId: comment.tweetId,
-          name: comment.name,
-          username: comment.username,
-          date: comment.date,
-          body: comment.body,
-          likes: comment.likes,
-        },
-      ]);
-    });
+    if (t.comments) {
+      t.comments.forEach((comment) => {
+        setComments((comments) => [
+          ...comments,
+          {
+            id: comment.id,
+            tweetId: comment.tweetId,
+            name: comment.name,
+            username: comment.username,
+            date: comment.date,
+            body: comment.body,
+            likes: comment.likes,
+          },
+        ]);
+      });
+    }
     // Setting the replies for each comment
-    if (tweet.replies) {
-      tweet.replies.forEach((reply) => {
+    if (t.replies) {
+      t.replies.forEach((reply) => {
         //had a freakin typo waste a day, its forEach not foreach
         setReplies((replies) => [
           ...replies,
@@ -93,7 +96,7 @@ const SingleTweet = () => {
       {/* Render Comments if they exists */}
       {comments.length > 1 ? (
         <Suspense fallback={<div>Loading...</div>}>
-          <CommentSection replies={replies} />
+          <CommentSection tweetId={tweetId} replies={replies} />
         </Suspense>
       ) : null}
     </Container>

@@ -31,7 +31,8 @@ const LikesAndComments = () => {
       <CardContent className={classes.statusBlock}>
         <Grid container spacing={3}>
           <Grid item style={{ fontSize: 18, padding: 10, color: "#fff" }}>
-            {tweet.likes.length} <Typography className={classes.likesAndComments}>Likes</Typography>
+            {tweet.likes ? tweet.likes.length : 0}{" "}
+            <Typography className={classes.likesAndComments}>Likes</Typography>
           </Grid>
           <Grid item style={{ fontSize: 18, padding: 10, color: "#fff" }}>
             {comments.length - 1}{" "}

@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MakeSend = () => {
+const MakeSend = ({ tweetId }) => {
   const classes = useStyles();
 
   // For Snackbar open/close stuff
@@ -50,7 +50,8 @@ const MakeSend = () => {
   };
   // Copies the link from the url, called in list item of share component dialog
   const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const url = `http://localhost:3000/tweet/${tweetId}`;
+    navigator.clipboard.writeText(url);
     setSBOpen(true);
     handleClose();
   };

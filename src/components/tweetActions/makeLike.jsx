@@ -18,14 +18,13 @@ const MakeLike = ({ tweetId }) => {
   const classes = useStyles();
 
   const [tweet, setTweet] = useContext(TweetContext);
-  const [liked, setLiked] = useState(tweet.likes.includes("paul"));
-  console.log(tweet.likes.includes("paul"));
+  const [liked, setLiked] = useState(tweet.likes ? tweet.likes.includes("paul") : false);
+  // console.log(tweet.likes.includes("paul"));
 
   // useEffect to set liked = true if liked by user at render
   useEffect(async () => {
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}/likes`);
     const likesArray = data.data;
-    console.log(likesArray);
     setLiked(likesArray.includes("paul"));
   }, []);
 

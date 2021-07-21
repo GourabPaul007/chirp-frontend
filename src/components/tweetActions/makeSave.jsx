@@ -25,7 +25,6 @@ const MakeSave = ({ tweetId }) => {
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}/saves`);
     const savesArray = data.data;
     setSaved(savesArray.includes("paul"));
-    console.log(tweet);
   }, []);
 
   const handleSave = async () => {
@@ -38,7 +37,6 @@ const MakeSave = ({ tweetId }) => {
       name,
     });
     setSaved(!saved);
-    console.log(tweet);
 
     // Getting tweet from server after updating the tweet
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);

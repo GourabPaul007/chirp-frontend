@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, makeStyles } from "@material-ui/core";
 
 import { CommentsContext } from "../../contexts/commentsContext";
@@ -17,10 +17,33 @@ const useStyles = makeStyles({
   },
 });
 
-const CommentSection = ({ replies }) => {
+const CommentSection = ({ replies, tweetId }) => {
   const classes = useStyles();
 
   const [comments, setComments] = useContext(CommentsContext);
+
+  // const [comment, setComment] = useContext(CommentContext);
+
+  useEffect(async () => {
+    // const URL = "http://localhost:5000/api/tweets";
+    // const data = await axios.get(URL);
+    // for (let i = 0; i < data.data.length; i++) {
+    //   //element is a tweet object i.e. its the whole tweet
+    //   let element = data.data[i];
+    //   setTweets(
+    //     {
+    //       id: element.id,
+    //       name: element.name,
+    //       username: element.username,
+    //       body: element.body,
+    //       date: element.date,
+    //       likes: element.likes,
+    //       saves: element.saves,
+    //       comments: element.comments,
+    //     },
+    //   );
+    // }
+  }, []);
 
   return (
     <>
@@ -30,7 +53,7 @@ const CommentSection = ({ replies }) => {
             // this Box is a whole comment including all its replies
             <Box key={comment.id} className={classes.wholeCommentWithReplies}>
               {/* this card is the main comment */}
-              <EachComment comment={comment} />
+              <EachComment tweetId={tweetId} comment={comment} />
               {/* Replies for the comment if exists */}
               {/* <ReplySection replies={replies} comment={comment} /> */}
             </Box>

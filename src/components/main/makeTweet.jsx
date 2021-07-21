@@ -64,6 +64,7 @@ const MakeTweet = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     // setName("paul");
+    const username = name; //have to delete later
     const likes = [];
     const saves = [];
     const comments = [];
@@ -72,9 +73,10 @@ const MakeTweet = () => {
     if (name && body) {
       await axios.post("http://localhost:5000/api/tweets/new", {
         name,
+        username,
         body,
-        likes,
-        saves,
+        // likes,
+        // saves,
         comments,
       });
     } else {

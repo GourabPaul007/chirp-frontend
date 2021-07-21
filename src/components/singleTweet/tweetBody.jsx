@@ -44,9 +44,7 @@ const TweetBody = ({ tweetId }) => {
 
           <CardContent>
             <Typography variant="h6" component="p" className={classes.tweetBody}>
-              {tweet.body} - This impressive paella is a perfect party dish and a fun meal to cook
-              together with your guests. Add 1 cup of frozen peas along with the mussels, if you
-              like.
+              {tweet.body}
             </Typography>
           </CardContent>
 
@@ -66,7 +64,7 @@ const TweetBody = ({ tweetId }) => {
                 <MakeLike tweetId={tweetId} /> {/*Like Component */}
               </Grid>
               <Grid item xs={3}>
-                <MakeSend /> {/*Share Component */}
+                <MakeSend tweetId={tweetId} /> {/*Share Component */}
               </Grid>
             </Grid>
           </CardActions>

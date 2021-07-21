@@ -24,6 +24,9 @@ import CommentIcon from "@material-ui/icons/Comment";
 import RepeatIcon from "@material-ui/icons/Repeat";
 // import ReplySection from "./commentSection/replies";
 
+import MakeCommentLike from "../../commentActions/makeCommentLike";
+import MakeSend from "../../tweetActions/makeSend";
+
 const useStyles = makeStyles({
   onlyComment: {
     /*each (comment with replies section) has its own border radius & stuff.
@@ -71,7 +74,7 @@ const useStyles = makeStyles({
   },
 });
 
-const EachComment = ({ comment, replies }) => {
+const EachComment = ({ comment, replies, tweetId }) => {
   const classes = useStyles();
 
   return (
@@ -123,26 +126,22 @@ const EachComment = ({ comment, replies }) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing className={classes.icons}>
-          <Grid container>
-            <Grid item xs={3}>
+          <Grid container spacing={1}>
+            {/* <Grid item xs={3}>
               <IconButton style={{ marginLeft: "auto" }}>
                 <CommentIcon className={classes.icons} />
               </IconButton>
+            </Grid> */}
+            <Grid item>
+              <MakeCommentLike tweetId={tweetId} comment={comment} />
             </Grid>
-            <Grid item xs={3}>
-              <IconButton aria-label="share">
-                <RepeatIcon className={classes.icons} />
-              </IconButton>
-            </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <IconButton aria-label="add to favorites">
                 <FavoriteIcon className={classes.icons} />
               </IconButton>
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
-              <IconButton aria-label="share">
-                <ShareIcon className={classes.icons} />
-              </IconButton>
+              <MakeSend tweetId={comment.tweetId} />
             </Grid>
           </Grid>
         </CardActions>
