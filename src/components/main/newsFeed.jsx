@@ -16,10 +16,10 @@ import {
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import MakeComment from "../tweetActions/makeComment";
-import MakeSave from "../tweetActions/makeSave";
-import MakeLike from "../tweetActions/makeLike";
-import MakeSend from "../tweetActions/makeSend";
+import MakeComment from "../ActionsTweet/makeComment";
+import MakeSave from "../ActionsTweet/makeSave";
+import MakeLike from "../ActionsTweet/makeLike";
+import MakeSend from "../ActionsTweet/makeSend";
 
 import timeConverter from "../../utils/timeConverter";
 
@@ -83,8 +83,8 @@ const NewsFeed = ({ tweets }) => {
     <>
       <Container border={1} className={classes.root}>
         {tweets.map((tweet) =>
-          tweet.id ? (
-            <Card key={tweet.id} className={classes.card}>
+          tweet._id ? (
+            <Card key={tweet._id} className={classes.card}>
               <CardHeader
                 avatar={
                   <Avatar aria-label="recipe" className={classes.avatar}>
@@ -131,7 +131,7 @@ const NewsFeed = ({ tweets }) => {
               />
               {/* Hovering on tweet & go to the tweet on click */}
               <CardActionArea
-                href={"/tweet/" + tweet.id}
+                href={"/tweet/" + tweet._id}
                 // target="_blank"
                 rel="noopener noreferrer"
               >
@@ -150,16 +150,16 @@ const NewsFeed = ({ tweets }) => {
               <CardActions disableSpacing>
                 <Grid container>
                   <Grid item xs={3}>
-                    <MakeComment tweetId={tweet.id} />
+                    <MakeComment tweetId={tweet._id} />
                   </Grid>
                   <Grid item xs={3}>
-                    <MakeSave tweetId={tweet.id} />
+                    <MakeSave tweetId={tweet._id} />
                   </Grid>
                   <Grid item xs={3}>
-                    <MakeLike tweetId={tweet.id} />
+                    <MakeLike tweetId={tweet._id} />
                   </Grid>
                   <Grid item xs={3}>
-                    <MakeSend tweetId={tweet.id} />
+                    <MakeSend tweetId={tweet._id} />
                   </Grid>
                 </Grid>
               </CardActions>

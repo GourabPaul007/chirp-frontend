@@ -18,7 +18,7 @@ const MakeLike = ({ tweetId }) => {
   const classes = useStyles();
 
   const [tweet, setTweet] = useContext(TweetContext);
-  const [liked, setLiked] = useState(tweet.likes ? tweet.likes.includes("paul") : false);
+  const [liked, setLiked] = useState(tweet.likes.includes("paul"));
   // console.log(tweet.likes.includes("paul"));
 
   // useEffect to set liked = true if liked by user at render
@@ -30,10 +30,10 @@ const MakeLike = ({ tweetId }) => {
 
   const handleLike = async () => {
     const URL = `http://localhost:5000/api/tweets/${tweetId}/updateLikes`;
-    const id = tweetId;
+    const _id = tweetId;
     const name = "paul";
     await axios.post(URL, {
-      id, //tweetId to check on backend if it matches in database
+      _id, //tweetId to check on backend if it matches in database
       name, //name to include in the likes array in backend
     });
     console.log(`${liked} request sent`);
@@ -43,6 +43,7 @@ const MakeLike = ({ tweetId }) => {
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);
     const tweetData = data.data;
     setTweet({
+      _id: tweetData._id,
       name: tweetData.name,
       username: tweetData.username,
       date: tweetData.date,

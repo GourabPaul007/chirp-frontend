@@ -6,7 +6,7 @@ import NewsFeed from "./main/newsFeed";
 const Main = (props) => {
   const [tweets, setTweets] = useState([
     {
-      id: null,
+      _id: null,
       name: null,
       username: null,
       body: null,
@@ -26,7 +26,7 @@ const Main = (props) => {
       setTweets((tweets) => [
         ...tweets,
         {
-          id: element.id,
+          _id: element._id,
           name: element.name,
           username: element.username,
           body: element.body,

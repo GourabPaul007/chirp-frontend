@@ -29,11 +29,11 @@ const MakeSave = ({ tweetId }) => {
 
   const handleSave = async () => {
     const URL = `http://localhost:5000/api/tweets/${tweetId}/updateSaves`;
-    const id = tweetId;
+    const _id = tweetId;
     const name = "paul";
     await axios.post(URL, {
       // Stuff to send to server on clicking save button
-      id,
+      _id,
       name,
     });
     setSaved(!saved);
@@ -42,7 +42,7 @@ const MakeSave = ({ tweetId }) => {
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);
     const tweetData = data.data;
     setTweet({
-      id: tweetData.id,
+      _id: tweetData._id,
       name: tweetData.name,
       username: tweetData.username,
       date: tweetData.date,

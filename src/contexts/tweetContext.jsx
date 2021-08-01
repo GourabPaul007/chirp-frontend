@@ -6,12 +6,12 @@ export const TweetProvider = (props) => {
   // Tweet contains properties of tweet such as name, body, likes etc
   const [tweet, setTweet] = useState({
     // ID is sent in props directly
+    _id: null,
     name: null,
     username: null,
     body: null,
     likes: [],
     saves: [],
-    comments: [],
     likesNumber: null,
     commentsNumber: null,
   });

@@ -6,10 +6,10 @@ import { TweetContext } from "../../contexts/tweetContext";
 import GoBack from "./tweetBody/goBack";
 import TweetHeader from "./tweetBody/tweetHeader";
 import LikesAndComments from "./tweetBody/likes&Comments";
-import MakeComment from "../tweetActions/makeComment";
-import MakeSave from "../tweetActions/makeSave";
-import MakeLike from "../tweetActions/makeLike";
-import MakeSend from "../tweetActions/makeSend";
+import MakeComment from "../ActionsTweet/makeComment";
+import MakeSave from "../ActionsTweet/makeSave";
+import MakeLike from "../ActionsTweet/makeLike";
+import MakeSend from "../ActionsTweet/makeSend";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -40,7 +40,7 @@ const TweetBody = ({ tweetId }) => {
           <GoBack />
 
           {/* Tweet Header for name & date stuff */}
-          <TweetHeader />
+          <TweetHeader tweetId={tweetId} />
 
           <CardContent>
             <Typography variant="h6" component="p" className={classes.tweetBody}>

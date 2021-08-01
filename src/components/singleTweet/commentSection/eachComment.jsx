@@ -2,17 +2,11 @@ import React from "react";
 import {
   makeStyles,
   Typography,
-  Box,
-  IconButton,
   Avatar,
   CardHeader,
   Card,
   CardContent,
   CardActions,
-  TextField,
-  DialogActions,
-  Button,
-  Container,
   Grid,
   Link,
 } from "@material-ui/core";
@@ -24,8 +18,13 @@ import CommentIcon from "@material-ui/icons/Comment";
 import RepeatIcon from "@material-ui/icons/Repeat";
 // import ReplySection from "./commentSection/replies";
 
-import MakeCommentLike from "../../commentActions/makeCommentLike";
-import MakeSend from "../../tweetActions/makeSend";
+import MakeCommentLike from "../../ActionsComment/makeCommentLike";
+import MakeCommentReply from "../../ActionsComment/makeCommentReply";
+import MakeCommentSend from "../../ActionsComment/makeCommentSend";
+
+import MakeSend from "../../ActionsTweet/makeSend";
+import LikesAndReplies from "../../ActionsComment/likes&Replies";
+import DeleteComment from "../../ActionsComment/deleteComment";
 
 const useStyles = makeStyles({
   onlyComment: {
@@ -61,7 +60,7 @@ const useStyles = makeStyles({
   },
   commentBody: {
     textAlign: "left",
-    marginTop: 0,
+    marginTop: 10,
     marginLeft: 56,
     paddingTop: 0,
     color: "#D9D9D9",
@@ -70,7 +69,10 @@ const useStyles = makeStyles({
   icons: {
     fontSize: 18,
     color: "#6e767d",
-    paddingTop: 0,
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginTop: 8,
+    marginBottom: 8,
   },
 });
 
@@ -90,11 +92,7 @@ const EachComment = ({ comment, replies, tweetId }) => {
               G
             </Avatar>
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
+          action={<DeleteComment commentId={comment._id} />}
           // Comment Title
           title={
             <Grid container>
@@ -111,37 +109,27 @@ const EachComment = ({ comment, replies, tweetId }) => {
                 </Typography>
               </Grid>
             </Grid>
-            // <Typography variant="h5" className={classes.commentTitle} component="h3">
-            //   {comment.name}
-            // </Typography>
           }
           subheader={<Typography className={classes.commentSubheader}>{comment.date}</Typography>}
         />
         {/* removes the top & bottom padding from card content */}
         <CardContent style={{ paddingTop: 0, paddingBottom: 0 }}>
           <Typography variant="body1" component="p" className={classes.commentBody}>
-            {comment.body} - Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste ab
-            commodi iusto quasi error voluptatibus, perferendis vitae minima, sapiente nostrum
-            asperiores consequuntur.
+            {comment.body}
           </Typography>
         </CardContent>
         <CardActions disableSpacing className={classes.icons}>
           <Grid container spacing={1}>
-            {/* <Grid item xs={3}>
-              <IconButton style={{ marginLeft: "auto" }}>
-                <CommentIcon className={classes.icons} />
-              </IconButton>
-            </Grid> */}
-            <Grid item>
+            <Grid item xs={4}>
+              <MakeCommentReply tweetId={tweetId} comment={comment} />
+            </Grid>
+
+            <Grid item xs={4}>
               <MakeCommentLike tweetId={tweetId} comment={comment} />
             </Grid>
-            {/* <Grid item xs={3}>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon className={classes.icons} />
-              </IconButton>
-            </Grid> */}
-            <Grid item xs={3}>
-              <MakeSend tweetId={comment.tweetId} />
+
+            <Grid item xs={4}>
+              <MakeCommentSend tweetId={comment.tweetId} comment={comment} />
             </Grid>
           </Grid>
         </CardActions>

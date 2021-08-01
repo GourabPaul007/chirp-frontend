@@ -4,7 +4,7 @@ export const CommentContext = createContext();
 
 export const CommentProvider = (props) => {
   const [comment, setComment] = useState({
-    id: null,
+    _id: null,
     tweetId: null,
     name: null,
     username: null,

@@ -27,13 +27,15 @@ const MakeComment = ({ tweetId }) => {
   };
   const handleCommentPost = async (e) => {
     setOpen(false);
-    const URL = `http://localhost:5000/api/tweets/${tweetId}/newComment`;
+    const URL = `http://localhost:5000/api/comments/${tweetId}/newComment`;
     // Setting stuff to send in post request
     const name = commenter;
+    const username = commenter;
     const body = commentBody;
     await axios.post(URL, {
       tweetId,
       name, //name to include in the comments array in backend
+      username,
       body, //comment body to include in the comments array in backend
       // date: is set in Server
     });
@@ -51,9 +53,10 @@ const MakeComment = ({ tweetId }) => {
       setComments((comments) => [
         ...comments,
         {
-          id: comment.id,
+          _id: comment._id,
           tweetId: comment.tweetId,
           name: comment.name,
+          username: comment.username,
           date: comment.date,
           body: comment.body,
           likes: comment.likes,

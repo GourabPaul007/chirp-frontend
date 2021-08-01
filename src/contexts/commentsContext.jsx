@@ -6,7 +6,7 @@ export const CommentsProvider = (props) => {
   // Comments is an array of objects
   const [comments, setComments] = useState([
     {
-      id: null,
+      _id: null,
       tweetId: null,
       name: null,
       username: null,

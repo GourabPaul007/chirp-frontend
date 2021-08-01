@@ -2,7 +2,13 @@
 // Children are TweetBody & CommentSection
 
 import React, { useContext, useEffect, useState, Suspense } from "react";
-import { makeStyles, Container, CssBaseline } from "@material-ui/core";
+import {
+  makeStyles,
+  Container,
+  CssBaseline,
+  CircularProgress,
+  Typography,
+} from "@material-ui/core";
 import axios from "axios";
 
 import { useParams } from "react-router";
@@ -45,13 +51,13 @@ const SingleTweet = () => {
 
     // setting state of tweet from fetched data from server
     setTweet({
+      _id: t._id,
       name: t.name,
       username: t.username,
       date: t.date,
       body: t.body,
       likes: t.likes,
       saves: t.saves,
-      comments: t.comments,
     });
     console.log(tweet);
     // setting the comments for tweet from fetched data from server
@@ -60,7 +66,7 @@ const SingleTweet = () => {
         setComments((comments) => [
           ...comments,
           {
-            id: comment.id,
+            _id: comment._id,
             tweetId: comment.tweetId,
             name: comment.name,
             username: comment.username,
@@ -78,8 +84,9 @@ const SingleTweet = () => {
         setReplies((replies) => [
           ...replies,
           {
-            id: reply.id,
+            _id: reply._id,
             commentId: reply.commentId,
+            tweetId: reply.tweetId,
             name: reply.name,
             date: reply.date,
             body: reply.body,
@@ -90,16 +97,27 @@ const SingleTweet = () => {
     }
   }, []);
 
-  return (
+  return tweet._id ? (
+    // return (
     <Container className={classes.rootSingleTweet}>
       <TweetBody tweet={tweet} setTweet={setTweet} tweetId={tweetId} />
       {/* Render Comments if they exists */}
       {comments.length > 1 ? (
-        <Suspense fallback={<div>Loading...</div>}>
-          <CommentSection tweetId={tweetId} replies={replies} />
+        <Suspense
+          fallback={
+            <div>
+              <CircularProgress color="primary" />
+            </div>
+          }
+        >
+          <CommentSection tweetId={tweetId} />
         </Suspense>
       ) : null}
     </Container>
+  ) : (
+    <>
+      <Typography>This Tweet Have Been Deleted</Typography>
+    </>
   );
 };
 

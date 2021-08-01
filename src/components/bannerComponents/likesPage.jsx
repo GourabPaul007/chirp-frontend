@@ -15,10 +15,10 @@ import React, { useEffect, useState } from "react";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import MakeComment from "../tweetActions/makeComment";
-import MakeSave from "../tweetActions/makeSave";
-import MakeLike from "../tweetActions/makeLike";
-import MakeSend from "../tweetActions/makeSend";
+import MakeComment from "../ActionsTweet/makeComment";
+import MakeSave from "../ActionsTweet/makeSave";
+import MakeLike from "../ActionsTweet/makeLike";
+import MakeSend from "../ActionsTweet/makeSend";
 
 import timeConverter from "../../utils/timeConverter";
 
@@ -93,7 +93,7 @@ const BookmarksPage = () => {
 
   const [tweets, setTweets] = useState([
     {
-      id: null,
+      _id: null,
       name: null,
       username: null,
       body: null,
@@ -105,23 +105,24 @@ const BookmarksPage = () => {
   ]);
 
   useEffect(async () => {
-    const url = `http://localhost:5000/api/banner/paul/likes`;
+    const user = "paul";
+    const url = `http://localhost:5000/api/banner/${user}/likes`;
     const data = await axios.get(url);
 
     for (let i = 0; i < data.data.length; i++) {
-      //element is a tweet object i.e. its the whole tweet
-      let element = data.data[i];
+      //t is a tweet object i.e. its the whole tweet
+      let t = data.data[i];
       setTweets((tweets) => [
         ...tweets,
         {
-          id: element.id,
-          name: element.name,
-          username: element.username,
-          body: element.body,
-          date: element.date,
-          likes: element.likes,
-          saves: element.saves,
-          comments: element.comments,
+          _id: t._id,
+          name: t.name,
+          username: t.username,
+          body: t.body,
+          date: t.date,
+          likes: t.likes,
+          saves: t.saves,
+          comments: t.comments,
         },
       ]);
     }
@@ -156,8 +157,8 @@ const BookmarksPage = () => {
         </Card>
         {tweets.length > 1 ? (
           tweets.map((tweet) =>
-            tweet.id ? (
-              <Card key={tweet.id} className={classes.card}>
+            tweet._id ? (
+              <Card key={tweet._id} className={classes.card}>
                 <CardHeader
                   avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
@@ -189,7 +190,7 @@ const BookmarksPage = () => {
                 />
                 {/* Hovering on tweet & go to the tweet on click */}
                 <CardActionArea
-                  href={"/tweet/" + tweet.id}
+                  href={"/tweet/" + tweet._id}
                   // target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -208,16 +209,16 @@ const BookmarksPage = () => {
                 <CardActions disableSpacing>
                   <Grid container>
                     <Grid item xs={3}>
-                      <MakeComment tweetId={tweet.id} />
+                      <MakeComment tweetId={tweet._id} />
                     </Grid>
                     <Grid item xs={3}>
-                      <MakeSave tweetId={tweet.id} />
+                      <MakeSave tweetId={tweet._id} />
                     </Grid>
                     <Grid item xs={3}>
-                      <MakeLike tweetId={tweet.id} />
+                      <MakeLike tweetId={tweet._id} />
                     </Grid>
                     <Grid item xs={3}>
-                      <MakeSend />
+                      <MakeSend tweetId={tweet._id} />
                     </Grid>
                   </Grid>
                 </CardActions>

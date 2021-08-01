@@ -3,10 +3,10 @@ import { Grid, Link, makeStyles } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 
 import { Typography, IconButton, Avatar, CardHeader } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { TweetContext } from "../../../contexts/tweetContext";
 
 import timeConverter from "../../../utils/timeConverter";
+import DeleteTweet from "../../ActionsTweet/deleteTweet";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TweetHeader = () => {
+const TweetHeader = ({ tweetId }) => {
   const classes = useStyles();
 
   const [tweet, setTweet] = useContext(TweetContext);
@@ -52,11 +52,7 @@ const TweetHeader = () => {
             G
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        action={<DeleteTweet tweetId={tweetId} />}
         title={
           <Grid container>
             <Grid item>
