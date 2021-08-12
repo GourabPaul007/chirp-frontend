@@ -11,20 +11,14 @@ import {
   Link,
 } from "@material-ui/core";
 
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import CommentIcon from "@material-ui/icons/Comment";
-import RepeatIcon from "@material-ui/icons/Repeat";
 // import ReplySection from "./commentSection/replies";
 
 import MakeCommentLike from "../../ActionsComment/makeCommentLike";
 import MakeCommentReply from "../../ActionsComment/makeCommentReply";
 import MakeCommentSend from "../../ActionsComment/makeCommentSend";
+import MoreCommentOptions from "../../ActionsComment/moreCommentOptions";
 
-import MakeSend from "../../ActionsTweet/makeSend";
-import LikesAndReplies from "../../ActionsComment/likes&Replies";
-import DeleteComment from "../../ActionsComment/deleteComment";
+import timeConverter from "../../../utils/timeConverter";
 
 const useStyles = makeStyles({
   onlyComment: {
@@ -92,7 +86,7 @@ const EachComment = ({ comment, replies, tweetId }) => {
               G
             </Avatar>
           }
-          action={<DeleteComment commentId={comment._id} />}
+          action={<MoreCommentOptions commentId={comment._id} />}
           // Comment Title
           title={
             <Grid container>
@@ -110,7 +104,11 @@ const EachComment = ({ comment, replies, tweetId }) => {
               </Grid>
             </Grid>
           }
-          subheader={<Typography className={classes.commentSubheader}>{comment.date}</Typography>}
+          subheader={
+            <Typography className={classes.commentSubheader}>
+              {timeConverter(comment.date)}
+            </Typography>
+          }
         />
         {/* removes the top & bottom padding from card content */}
         <CardContent style={{ paddingTop: 0, paddingBottom: 0 }}>

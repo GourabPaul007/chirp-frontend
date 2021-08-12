@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Typography } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import { useStyles } from "./_buttonStyles";
+import { useStyles } from "./_bannerStyles";
 
 const Likes = () => {
   const classes = useStyles();

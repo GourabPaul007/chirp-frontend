@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Typography, makeStyles } from "@material-ui/core";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 
-import { useStyles } from "./_buttonStyles";
+import { useStyles } from "./_bannerStyles";
 
 const Home = () => {
   const classes = useStyles();

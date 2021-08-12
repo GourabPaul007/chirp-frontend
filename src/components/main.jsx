@@ -1,7 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
+import { Grid } from "@material-ui/core";
 import axios from "axios";
 import MakeTweet from "./main/makeTweet";
 import NewsFeed from "./main/newsFeed";
+import Banner from "./banner";
 
 const Main = (props) => {
   const [tweets, setTweets] = useState([
@@ -41,10 +43,17 @@ const Main = (props) => {
 
   return (
     <>
-      <div style={{ margin: 0 }}>
-        <MakeTweet />
-        <NewsFeed tweets={tweets} />
-      </div>
+      <Grid item xs={2} sm={4} lg={4}>
+        <Banner />
+      </Grid>
+      {/* Middle Grid - news feed & make tweet */}
+      <Grid item xs={8} sm={6} lg={5}>
+        {/* <Main /> */}
+        <div style={{ margin: 0 }}>
+          <MakeTweet />
+          <NewsFeed tweets={tweets} />
+        </div>
+      </Grid>
     </>
   );
 };

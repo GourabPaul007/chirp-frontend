@@ -8,6 +8,7 @@ import {
   CssBaseline,
   CircularProgress,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import axios from "axios";
 
@@ -16,6 +17,7 @@ import TweetBody from "./singleTweet/tweetBody";
 import { TweetContext } from "../contexts/tweetContext";
 import { CommentsContext } from "../contexts/commentsContext";
 import { RepliesContext } from "../contexts/repliesContext";
+import Banner from "./banner";
 const CommentSection = React.lazy(() => import("./singleTweet/commentSection"));
 
 const useStyles = makeStyles((theme) => ({
@@ -88,6 +90,7 @@ const SingleTweet = () => {
             commentId: reply.commentId,
             tweetId: reply.tweetId,
             name: reply.name,
+            username: reply.username,
             date: reply.date,
             body: reply.body,
             likes: reply.likes,
@@ -97,26 +100,34 @@ const SingleTweet = () => {
     }
   }, []);
 
-  return tweet._id ? (
-    // return (
-    <Container className={classes.rootSingleTweet}>
-      <TweetBody tweet={tweet} setTweet={setTweet} tweetId={tweetId} />
-      {/* Render Comments if they exists */}
-      {comments.length > 1 ? (
-        <Suspense
-          fallback={
-            <div>
-              <CircularProgress color="primary" />
-            </div>
-          }
-        >
-          <CommentSection tweetId={tweetId} />
-        </Suspense>
-      ) : null}
-    </Container>
-  ) : (
+  return (
     <>
-      <Typography>This Tweet Have Been Deleted</Typography>
+      <Grid item xs={2} sm={4} lg={4}>
+        <Banner />
+      </Grid>
+      <Grid item xs={8} sm={6} lg={5}>
+        {tweet._id ? (
+          <Container className={classes.rootSingleTweet}>
+            <TweetBody tweet={tweet} setTweet={setTweet} tweetId={tweetId} />
+            {/* Render Comments if they exists */}
+            {comments.length > 1 ? (
+              <Suspense
+                fallback={
+                  <div>
+                    <CircularProgress color="primary" />
+                  </div>
+                }
+              >
+                <CommentSection tweetId={tweetId} />
+              </Suspense>
+            ) : null}
+          </Container>
+        ) : (
+          <>
+            <Typography>This Tweet Have Been Deleted</Typography>
+          </>
+        )}
+      </Grid>
     </>
   );
 };

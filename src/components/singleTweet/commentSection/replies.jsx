@@ -10,39 +10,29 @@ import {
   makeStyles,
   Button,
   Select,
+  Link,
 } from "@material-ui/core";
-import "./replies.css";
 
 import MakeReplyReply from "../../ActionsReply/makeReplyReply";
 import MakeReplyLike from "../../ActionsReply/MakeReplyLike";
 import MakeReplySend from "../../ActionsReply/makeReplySend";
 
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import CommentIcon from "@material-ui/icons/Comment";
-import RepeatIcon from "@material-ui/icons/Repeat";
 import { RepliesContext } from "../../../contexts/repliesContext";
-import axios from "axios";
+import timeConverter from "../../../utils/timeConverter";
+import MoreOptions from "../../ActionsReply/moreReplyOptions";
 
 const useStyles = makeStyles({
   commentBox: {
-    // border: "2px solid #fff",
     borderTop: "1px solid #2F3336",
     borderBottom: "1px solid #2F3336",
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 40,
     marginBottom: 0,
-    // borderRadius: 5,
   },
   replyCard: {
     margin: "auto",
-    // borderTop: "1px solid #2F3336",
-    // borderBottom: "1px solid #2F3336",
-    // borderRadius: 15,
     marginTop: 0,
-    // marginBottom: 10,
     marginBlock: 0,
     paddingTop: 8,
     paddingBottom: 8,
@@ -55,6 +45,17 @@ const useStyles = makeStyles({
     alignSelf: "flex-start",
     textAlign: "left",
     fontSize: 20,
+  },
+  username: {
+    color: "#777",
+    fontSize: 16,
+    fontWeight: 300,
+    marginRight: "auto",
+    marginTop: 3,
+    marginBottom: "auto",
+    marginLeft: 6,
+    alignSelf: "flex-start",
+    textAlign: "left",
   },
   replySubheader: {
     marginRight: "auto",
@@ -75,61 +76,12 @@ const useStyles = makeStyles({
     fontSize: 18,
     color: "#6e767d",
   },
-  menuItem: {
-    marginLeft: 6,
-    marginRight: 6,
-    borderRadius: 5,
-  },
 });
 
 const ReplySection = ({ tweetId, comment }) => {
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
   const [replies, setReplies] = useContext(RepliesContext);
-
-  const indexOfObject = (newReplies, replyId) => {
-    for (let i = 0; i < newReplies.length; i++) {
-      if (newReplies[i]._id == replyId) {
-        return i;
-      }
-    }
-  };
-
-  // Delete reply
-  const handleDeleteReply = async (replyId) => {
-    console.log(replyId);
-    const url = `http://localhost:5000/api/replies/${replyId}/deleteReply`;
-    await axios.post(url);
-    // handleClose();
-
-    // need to remove the reply that deleted from local state
-    const newReplies = JSON.parse(JSON.stringify(replies));
-    console.log(newReplies);
-    newReplies.splice(indexOfObject(newReplies, replyId), 1);
-    console.log(newReplies);
-    setReplies(newReplies);
-  };
-
-  // // Close the dropdown if the user clicks outside of it
-  // window.onclick = function (e) {
-  //   if (!e.target.matches(".dropbtn")) {
-  //     var dropdowns = document.getElementsByClassName("dropdown-content");
-  //     var i;
-  //     for (i = 0; i < dropdowns.length; i++) {
-  //       var openDropdown = dropdowns[i];
-  //       if (openDropdown.classList.contains("show")) {
-  //         openDropdown.classList.remove("show");
-  //       }
-  //     }
-  //   }
-  // };
-  // function myFunction() {
-  //   document.getElementById("myDropdown").classList.toggle("show");
-  // }
 
   return (
     <>
@@ -141,79 +93,39 @@ const ReplySection = ({ tweetId, comment }) => {
                 paddingTop: 0,
                 paddingBottom: 0,
                 marginTop: 0,
+                marginBottom: 0,
               }}
               avatar={<Avatar className={classes.avatar}>G</Avatar>}
-              action={
-                <>
-                  {/* <IconButton onClick={handleOpen}>
-                    <MoreVertIcon />
-                  </IconButton> */}
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    IconComponent={MoreVertIcon}
-                    disableUnderline
-                    autoWidth
-                    style={{ marginRight: 12, marginTop: 6, background: "#000" }}
-                  >
-                    <Grid container spacing={1}>
-                      <Grid item xs={12}>
-                        <Button
-                          fullWidth
-                          style={{
-                            background: "#F44336",
-                            textTransform: "none",
-                          }}
-                          onClick={() => handleDeleteReply(reply._id)}
-                        >
-                          Delete
-                        </Button>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Button
-                          style={{
-                            background: "#FF5722",
-                            textTransform: "none",
-                          }}
-                          fullWidth
-                        >
-                          Report
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Select>
-                </>
-              }
+              // More Options
+              action={<MoreOptions reply={reply} />}
               title={
-                <Typography variant="h5" className={classes.replyTitle} component="h3">
-                  {reply.name}
+                <Grid container>
+                  <Grid item>
+                    <Link
+                      target="_blank"
+                      href="https://www.google.com"
+                      style={{ color: "#D9D9D9" }}
+                    >
+                      <Typography variant="h5" className={classes.replyTitle} component="h3">
+                        {reply.name}
+                      </Typography>
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h5" className={classes.username} component="h3">
+                      @{reply.username}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              }
+              subheader={
+                <Typography className={classes.replySubheader}>
+                  {timeConverter(reply.date)}
                 </Typography>
               }
-              subheader={<Typography className={classes.replySubheader}>{reply.date}</Typography>}
             />
-            {/* <Grid item xs={2}>
-                <div className="dropdown">
-                  <Button onClick={myFunction} className="dropbtn">
-                    Button
-                  </Button>
-                  <div id="myDropdown" className="dropdown-content">
-                    <Button
-                      fullWidth
-                      style={{
-                        background: "#F44336",
-                        textTransform: "none",
-                      }}
-                      onClick={() => handleDeleteReply(reply.id)}
-                    >
-                      Delete
-                    </Button>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                  </div>
-                </div>
-              </Grid> */}
             {/* removes the top & bottom padding from card content */}
-            <CardContent style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <CardContent style={{ paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0 }}>
               <Typography variant="body1" component="p" className={classes.replyBody}>
                 {reply.body}
               </Typography>
@@ -233,21 +145,6 @@ const ReplySection = ({ tweetId, comment }) => {
                 </Grid>
               </Grid>
             </CardActions>
-
-            {/* {open ? (
-              <>
-                <Paper style={{ position: "relative", top: yPos, left: xPos, zIndex: 9 }}>
-                  <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                      <Button onClick={() => handleDeleteReply(reply.id)}>Delete</Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Button>Report</Button>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </>
-            ) : null} */}
           </Card>
         ) : null
       )}

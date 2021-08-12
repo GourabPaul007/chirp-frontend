@@ -107,9 +107,9 @@ const BookmarksPage = () => {
 
   useEffect(async () => {
     const user = "paul";
-    const url = `http://localhost:5000/api/banner/${user}/likes`;
+    const url = `http://localhost:5000/api/banner/${user}/bookmarks`;
     const data = await axios.get(url);
-
+    console.log(data.data);
     for (let i = 0; i < data.data.length; i++) {
       //t is a tweet object i.e. its the whole tweet
       let t = data.data[i];
@@ -145,7 +145,7 @@ const BookmarksPage = () => {
                   style={{ paddingLeft: 12 }}
                   component="h3"
                 >
-                  Likes
+                  Bookmarks
                 </Typography>
               }
               subheader={
@@ -155,7 +155,7 @@ const BookmarksPage = () => {
                     paddingLeft: 12,
                   }}
                 >
-                  When You like a chirp, it'll appear here
+                  When You Save a chirp, it'll appear here
                 </Typography>
               }
             />
@@ -234,7 +234,7 @@ const BookmarksPage = () => {
             <Card className={classes.topCard}>
               <CardContent>
                 <Typography style={{ fontSize: 20 }}>
-                  Sorry You do not have any Liked Chirps
+                  Sorry You do not have any Saved Chirps
                 </Typography>
               </CardContent>
             </Card>

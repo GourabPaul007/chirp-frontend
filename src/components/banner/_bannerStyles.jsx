@@ -58,4 +58,8 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 20,
     fontWeight: "bold",
   },
+  moreMenuItems: {
+    paddingLeft: 16,
+    paddingRight: 8,
+  },
 }));

@@ -1,10 +1,42 @@
 import React, { useContext } from "react";
-import { Select, Grid, Button } from "@material-ui/core";
+import { Select, Grid, Button, makeStyles } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
 import { TweetContext } from "../../contexts/tweetContext";
 
+const useStyles = makeStyles({
+  select: {
+    "& ul": {
+      backgroundColor: "#000000",
+      border: "1px solid #fff",
+      borderRadius: 5,
+    },
+    "& li": {
+      fontSize: 20,
+    },
+  },
+  deleteButton: {
+    textTransform: "none",
+    borderRadius: 0,
+    "&:hover": {
+      background: "#d50000",
+    },
+    // F44336
+    padding: 8,
+  },
+  reportButton: {
+    textTransform: "none",
+    borderRadius: 0,
+    "&:hover": {
+      background: "#FF5722",
+    },
+    padding: 8,
+  },
+});
+
 const DeleteTweet = ({ tweetId }) => {
+  const classes = useStyles();
+
   const [tweet, setTweet] = useContext(TweetContext);
 
   // Delete Tweet
@@ -31,29 +63,21 @@ const DeleteTweet = ({ tweetId }) => {
         IconComponent={MoreVertIcon}
         disableUnderline
         autoWidth
-        style={{ marginRight: 12, marginTop: 6, background: "#000" }}
+        style={{ marginRight: 12, marginTop: 6 }}
+        MenuProps={{ classes: { paper: classes.select } }}
       >
-        <Grid container spacing={1} style={{ background: "#000" }}>
+        <Grid container spacing={0}>
           <Grid item xs={12}>
             <Button
               fullWidth
-              style={{
-                background: "#F44336",
-                textTransform: "none",
-              }}
+              className={classes.deleteButton}
               onClick={() => handleDeleteTweet(tweetId)}
             >
               Delete
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              style={{
-                background: "#FF5722",
-                textTransform: "none",
-              }}
-              fullWidth
-            >
+            <Button className={classes.reportButton} fullWidth>
               Report
             </Button>
           </Grid>

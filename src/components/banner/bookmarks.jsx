@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Typography } from "@material-ui/core";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 
-import { useStyles } from "./_buttonStyles";
+import { useStyles } from "./_bannerStyles";
 
 const Bookmarks = () => {
   const classes = useStyles();

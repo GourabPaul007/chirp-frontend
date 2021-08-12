@@ -10,6 +10,7 @@ export const RepliesProvider = (props) => {
       tweetId: null,
       commentId: null,
       name: null,
+      username: null,
       date: null,
       body: null,
       likes: null,

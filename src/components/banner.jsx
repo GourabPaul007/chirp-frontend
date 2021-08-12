@@ -8,7 +8,7 @@ import Home from "./banner/home";
 import Bookmarks from "./banner/bookmarks";
 import Likes from "./banner/likes";
 import Profile from "./banner/profile";
-import More from "./banner/more";
+import More from "./banner/More";
 
 const useStyles = makeStyles((theme) => ({
   root: {

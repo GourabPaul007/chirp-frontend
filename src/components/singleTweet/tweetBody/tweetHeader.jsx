@@ -6,7 +6,7 @@ import { Typography, IconButton, Avatar, CardHeader } from "@material-ui/core";
 import { TweetContext } from "../../../contexts/tweetContext";
 
 import timeConverter from "../../../utils/timeConverter";
-import DeleteTweet from "../../ActionsTweet/deleteTweet";
+import DeleteTweet from "../../ActionsTweet/moreTweetOptions";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {

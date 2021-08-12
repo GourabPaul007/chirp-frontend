@@ -3,10 +3,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ProfileProvider } from "./contexts/ProfileContext";
+import { AuthProvider } from "./contexts/authContext";
 
 ReactDOM.render(
   <React.Fragment>
-    <App />
+    <AuthProvider>
+      <ProfileProvider>
+        <App />
+      </ProfileProvider>
+    </AuthProvider>
   </React.Fragment>,
   document.getElementById("root")
 );
