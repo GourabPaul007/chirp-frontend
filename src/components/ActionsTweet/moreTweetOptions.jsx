@@ -3,6 +3,7 @@ import { Select, Grid, Button, makeStyles } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
 import { TweetContext } from "../../contexts/tweetContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const useStyles = makeStyles({
   select: {
@@ -19,18 +20,20 @@ const useStyles = makeStyles({
     textTransform: "none",
     borderRadius: 0,
     "&:hover": {
-      background: "#d50000",
+      // background: "#d50000",
     },
     // F44336
     padding: 8,
+    minWidth: 120,
   },
   reportButton: {
     textTransform: "none",
     borderRadius: 0,
     "&:hover": {
-      background: "#FF5722",
+      // background: "#FF5722",
     },
     padding: 8,
+    minWidth: 120,
   },
 });
 
@@ -38,6 +41,7 @@ const DeleteTweet = ({ tweetId }) => {
   const classes = useStyles();
 
   const [tweet, setTweet] = useContext(TweetContext);
+  const [profile, setProfile] = useContext(ProfileContext);
 
   // Delete Tweet
   const handleDeleteTweet = async (tweetId) => {
@@ -47,6 +51,7 @@ const DeleteTweet = ({ tweetId }) => {
       _id: null,
       name: null,
       username: null,
+      authorID: null,
       body: null,
       likes: [],
       saves: [],
@@ -66,20 +71,16 @@ const DeleteTweet = ({ tweetId }) => {
         style={{ marginRight: 12, marginTop: 6 }}
         MenuProps={{ classes: { paper: classes.select } }}
       >
-        <Grid container spacing={0}>
+        <Grid container spacing={0} direction={"column"}>
+          {profile.uid === tweet.authorID ? (
+            <Grid item xs={12}>
+              <Button className={classes.deleteButton} onClick={() => handleDeleteTweet(tweetId)}>
+                Delete
+              </Button>
+            </Grid>
+          ) : null}
           <Grid item xs={12}>
-            <Button
-              fullWidth
-              className={classes.deleteButton}
-              onClick={() => handleDeleteTweet(tweetId)}
-            >
-              Delete
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button className={classes.reportButton} fullWidth>
-              Report
-            </Button>
+            <Button className={classes.reportButton}>Report</Button>
           </Grid>
         </Grid>
       </Select>

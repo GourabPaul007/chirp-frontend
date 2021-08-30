@@ -56,12 +56,12 @@ const SingleTweet = () => {
       _id: t._id,
       name: t.name,
       username: t.username,
+      authorID: t.authorID,
       date: t.date,
       body: t.body,
       likes: t.likes,
       saves: t.saves,
     });
-    console.log(tweet);
     // setting the comments for tweet from fetched data from server
     if (t.comments) {
       t.comments.forEach((comment) => {
@@ -72,6 +72,7 @@ const SingleTweet = () => {
             tweetId: comment.tweetId,
             name: comment.name,
             username: comment.username,
+            authorID: comment.authorID,
             date: comment.date,
             body: comment.body,
             likes: comment.likes,
@@ -91,6 +92,7 @@ const SingleTweet = () => {
             tweetId: reply.tweetId,
             name: reply.name,
             username: reply.username,
+            authorID: reply.authorID,
             date: reply.date,
             body: reply.body,
             likes: reply.likes,

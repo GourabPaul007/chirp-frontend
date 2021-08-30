@@ -19,6 +19,7 @@ import MakeCommentSend from "../../ActionsComment/makeCommentSend";
 import MoreCommentOptions from "../../ActionsComment/moreCommentOptions";
 
 import timeConverter from "../../../utils/timeConverter";
+import getRandomColor from "../../../utils/getRandomThemeColor";
 
 const useStyles = makeStyles({
   onlyComment: {
@@ -68,6 +69,9 @@ const useStyles = makeStyles({
     marginTop: 8,
     marginBottom: 8,
   },
+  avatar: {
+    backgroundColor: `${getRandomColor()}`,
+  },
 });
 
 const EachComment = ({ comment, replies, tweetId }) => {
@@ -81,17 +85,17 @@ const EachComment = ({ comment, replies, tweetId }) => {
           style={{
             paddingBottom: 0,
           }}
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              G
-            </Avatar>
-          }
-          action={<MoreCommentOptions commentId={comment._id} />}
+          avatar={<Avatar className={classes.avatar}>{comment.name[0]}</Avatar>}
+          action={<MoreCommentOptions commentId={comment._id} authorID={comment.authorID} />}
           // Comment Title
           title={
             <Grid container>
               <Grid item>
-                <Link target="_blank" href="https://www.google.com" style={{ color: "#D9D9D9" }}>
+                <Link
+                  target="_blank"
+                  href={`/user-profiles/${comment.username}`}
+                  style={{ color: "#D9D9D9" }}
+                >
                   <Typography variant="h5" className={classes.commentTitle} component="h3">
                     {comment.name}
                   </Typography>

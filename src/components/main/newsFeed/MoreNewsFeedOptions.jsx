@@ -1,23 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  Typography,
-  Avatar,
-  CardHeader,
-  Card,
-  CardContent,
-  CardActions,
-  Grid,
-  makeStyles,
-  Button,
-  Select,
-  Link,
-} from "@material-ui/core";
-
+import React, { useContext } from "react";
+import { Select, Grid, Button, makeStyles } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-
 import axios from "axios";
-import { RepliesContext } from "../../contexts/repliesContext";
-import { ProfileContext } from "../../contexts/ProfileContext";
+import { TweetContext } from "../../../contexts/tweetContext";
+import { ProfileContext } from "../../../contexts/ProfileContext";
 
 const useStyles = makeStyles({
   select: {
@@ -36,6 +22,7 @@ const useStyles = makeStyles({
     "&:hover": {
       // background: "#d50000",
     },
+    // F44336
     padding: 8,
     minWidth: 120,
   },
@@ -50,30 +37,31 @@ const useStyles = makeStyles({
   },
 });
 
-const MoreReplyOptions = ({ reply }) => {
+const DeleteTweet = ({ tweetId, tweets, setTweets, authorID }) => {
   const classes = useStyles();
 
-  const [replies, setReplies] = useContext(RepliesContext);
+  // const [tweet, setTweet] = useContext(TweetContext);
   const [profile, setProfile] = useContext(ProfileContext);
 
-  const indexOfObject = (newReplies, replyId) => {
-    for (let i = 0; i < newReplies.length; i++) {
-      if (newReplies[i]._id == replyId) {
+  const indexOfObject = (newTweets, tweetId) => {
+    for (let i = 0; i < newTweets.length; i++) {
+      if (newTweets[i]._id == tweetId) {
         return i;
       }
     }
   };
 
-  // Delete reply
-  const handleDeleteReply = async (replyId) => {
-    const url = `http://localhost:5000/api/replies/${replyId}/deleteReply`;
+  // Delete Tweet
+  const handleDeleteTweet = async (tweetId) => {
+    const url = `http://localhost:5000/api/tweets/${tweetId}/deleteTweet`;
     await axios.post(url);
-    // handleClose();
 
-    // need to remove the reply that deleted from local state
-    const newReplies = JSON.parse(JSON.stringify(replies));
-    newReplies.splice(indexOfObject(newReplies, replyId), 1);
-    setReplies(newReplies);
+    // need to remove the tweet that deleted from local state
+    const newTweets = JSON.parse(JSON.stringify(tweets));
+    console.log(newTweets);
+    newTweets.splice(indexOfObject(newTweets, tweetId), 1);
+    console.log(newTweets);
+    setTweets(newTweets);
   };
 
   return (
@@ -88,13 +76,13 @@ const MoreReplyOptions = ({ reply }) => {
         MenuProps={{ classes: { paper: classes.select } }}
       >
         <Grid container spacing={0} direction={"column"}>
-          <Grid item xs={12}>
-            {profile.uid === reply.authorID ? (
-              <Button className={classes.deleteButton} onClick={() => handleDeleteReply(reply._id)}>
+          {profile.uid === authorID ? (
+            <Grid item xs={12}>
+              <Button className={classes.deleteButton} onClick={() => handleDeleteTweet(tweetId)}>
                 Delete
               </Button>
-            ) : null}
-          </Grid>
+            </Grid>
+          ) : null}
           <Grid item xs={12}>
             <Button className={classes.reportButton}>Report</Button>
           </Grid>
@@ -104,4 +92,4 @@ const MoreReplyOptions = ({ reply }) => {
   );
 };
 
-export default MoreReplyOptions;
+export default DeleteTweet;

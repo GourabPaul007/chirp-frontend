@@ -24,6 +24,7 @@ import { ProfileContext, ProfileProvider } from "./contexts/ProfileContext";
 import { useAuth } from "./contexts/authContext";
 import { useContext, useEffect } from "react";
 import axios from "axios";
+import OtherProfile from "./components/OtherProfile";
 
 function App() {
   const [profile, setProfile] = useContext(ProfileContext);
@@ -36,14 +37,16 @@ function App() {
       const data = await axios.get(url, {
         email: currentUser.email,
       });
-      console.log(data);
-      setProfile({
+      // console.log(data.data);
+      setProfile((profile) => ({
+        ...profile,
         _id: currentUser._id,
         name: data.data.name,
-        displayName: data.data.displayName,
+        username: data.data.username,
+        uid: data.data.uid,
         email: currentUser.email,
         about: data.data.about,
-      });
+      }));
     }
   }, []);
 
@@ -92,6 +95,7 @@ function App() {
                     <PrivateRoute path={`/profile`} component={Profile} />
                     <PrivateRoute path={`/update-account`} component={UpdateAccount} />
                     <PrivateRoute path={`/edit-profile`} component={EditProfile} />
+                    <PrivateRoute path={`/user-profiles/:username`} component={OtherProfile} />
                   </Grid>
 
                   {/* Right Grid - functionality isn't fixed yet */}

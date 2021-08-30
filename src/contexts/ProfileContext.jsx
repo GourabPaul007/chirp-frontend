@@ -4,9 +4,10 @@ export const ProfileContext = createContext();
 
 export const ProfileProvider = (props) => {
   const [profile, setProfile] = useState({
-    uid: null,
+    _id: null,
     name: null,
-    displayName: null,
+    username: null,
+    uid: null,
     email: null,
     about: null,
   });

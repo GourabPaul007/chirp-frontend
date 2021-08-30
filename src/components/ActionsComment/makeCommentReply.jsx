@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,6 +9,7 @@ import { Button, makeStyles, Typography } from "@material-ui/core";
 import axios from "axios";
 import { CommentsContext } from "../../contexts/commentsContext";
 import { RepliesContext } from "../../contexts/repliesContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const useStyles = makeStyles({
   iconText: {
@@ -25,57 +26,44 @@ const MakeCommentReply = ({ tweetId, comment }) => {
   const classes = useStyles();
 
   const [replies, setReplies] = useContext(RepliesContext);
+  const [profile, setProfile] = useContext(ProfileContext);
 
   const [open, setOpen] = useState(false);
 
-  const [replier, setReplier] = useState(null);
-  const [replyBody, setReplyBody] = useState(null);
+  // const [replier, setReplier] = useState(null);
+  const replyBody = useRef(null);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleReply = async (e) => {
     setOpen(false);
     const commentId = comment._id;
     const URL = `http://localhost:5000/api/replies/${tweetId}/${commentId}/newReply`;
     // Setting stuff to send in post request
-    const name = replier;
-    const username = replier;
-    const body = replyBody;
-    await axios.post(URL, {
+    const name = profile.name;
+    const username = profile.username;
+    const uid = profile.uid;
+    console.log(profile.uid);
+    const body = replyBody.current.value;
+    const newReply = await axios.post(URL, {
       tweetId,
       commentId,
-      name, //name to include in the reply array in backend
+      name,
       username,
-      body, //reply body to include in the reply array in backend
+      uid,
+      body,
       // date: is set in Server
     });
 
-    // clearing Replies data so it does not stack & have key errors
-    await setReplies([]);
-
-    // Getting tweet from server after updating the Replies
-    const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);
-    const tweetData = data.data;
-
-    tweetData.replies.forEach((reply) => {
-      setReplies((replies) => [
-        ...replies,
-        {
-          _id: reply._id,
-          tweetId: reply.tweetId,
-          name: reply.name,
-          username: reply.username,
-          date: reply.date,
-          body: reply.body,
-          likes: reply.likes,
-        },
-      ]);
-    });
+    // adding new reply to frontend after creating it in backend, so it wont have to fetch server again
+    const newReplies = JSON.parse(JSON.stringify(replies));
+    newReplies.push(newReply.data);
+    await setReplies(newReplies);
   };
 
   return (
@@ -94,19 +82,14 @@ const MakeCommentReply = ({ tweetId, comment }) => {
         <DialogTitle id="form-dialog-title">Make A Reply</DialogTitle>
         <DialogContent style={{ minWidth: 600, minHeight: 70 }}>
           <TextField
-            margin="dense"
-            id="name"
-            fullWidth
-            placeholder="Name"
-            onChange={(e) => setReplier(e.target.value)}
-          />
-          <TextField
+            autoFocus
             margin="dense"
             id="Reply"
             fullWidth
             multiline
             placeholder="Reply"
-            onChange={(e) => setReplyBody(e.target.value)}
+            inputRef={replyBody}
+            // onChange={(e) => setReplyBody(e.target.value)}
           />
         </DialogContent>
         <DialogActions>

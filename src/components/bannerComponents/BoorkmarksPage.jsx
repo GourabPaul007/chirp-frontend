@@ -11,7 +11,7 @@ import {
   Avatar,
   IconButton,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
@@ -25,6 +25,8 @@ import timeConverter from "../../utils/timeConverter";
 import axios from "axios";
 import { red } from "@material-ui/core/colors";
 import Banner from "../banner";
+import { ProfileContext } from "../../contexts/ProfileContext";
+import MoreBannerTweetOptions from "./MoreBannerTweetOptions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -92,11 +94,14 @@ const useStyles = makeStyles((theme) => ({
 const BookmarksPage = () => {
   const classes = useStyles();
 
+  const [profile, setProfile] = useContext(ProfileContext);
+
   const [tweets, setTweets] = useState([
     {
       _id: null,
       name: null,
       username: null,
+      authorID: null,
       body: null,
       date: null,
       likes: [],
@@ -106,8 +111,7 @@ const BookmarksPage = () => {
   ]);
 
   useEffect(async () => {
-    const user = "paul";
-    const url = `http://localhost:5000/api/banner/${user}/bookmarks`;
+    const url = `http://localhost:5000/api/banner/${profile.uid}/bookmarks`;
     const data = await axios.get(url);
     console.log(data.data);
     for (let i = 0; i < data.data.length; i++) {
@@ -119,6 +123,7 @@ const BookmarksPage = () => {
           _id: t._id,
           name: t.name,
           username: t.username,
+          authorID: t.authorID,
           body: t.body,
           date: t.date,
           likes: t.likes,
@@ -127,7 +132,7 @@ const BookmarksPage = () => {
         },
       ]);
     }
-  }, []);
+  }, [profile]);
 
   return (
     <>
@@ -160,7 +165,7 @@ const BookmarksPage = () => {
               }
             />
           </Card>
-          {tweets.length > 1 ? (
+          {tweets.length ? (
             tweets.map((tweet) =>
               tweet._id ? (
                 <Card key={tweet._id} className={classes.card}>
@@ -171,9 +176,12 @@ const BookmarksPage = () => {
                       </Avatar>
                     }
                     action={
-                      <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                      </IconButton>
+                      <MoreBannerTweetOptions
+                        tweetId={tweet._id}
+                        tweets={tweets}
+                        setTweets={setTweets}
+                        authorID={tweet.authorID}
+                      />
                     }
                     title={
                       <Typography variant="h5" className={classes.title} component="h3">

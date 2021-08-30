@@ -9,19 +9,20 @@ import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRo
 import { IconButton } from "@material-ui/core";
 import axios from "axios";
 import { CommentsContext } from "../../contexts/commentsContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const MakeComment = ({ tweetId }) => {
   const [comments, setComments] = useContext(CommentsContext);
 
   const [open, setOpen] = useState(false);
 
-  const [commenter, setCommenter] = useState(null);
+  // const [commenter, setCommenter] = useState(null);
   const [commentBody, setCommentBody] = useState(null);
+  const [profile, setProfile] = useContext(ProfileContext);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -29,41 +30,24 @@ const MakeComment = ({ tweetId }) => {
     setOpen(false);
     const URL = `http://localhost:5000/api/comments/${tweetId}/newComment`;
     // Setting stuff to send in post request
-    const name = commenter;
-    const username = commenter;
+    const name = profile.name;
+    const username = profile.username;
+    const uid = profile.uid;
     const body = commentBody;
-    await axios.post(URL, {
+    const newComment = await axios.post(URL, {
       tweetId,
-      name, //name to include in the comments array in backend
+      name,
       username,
-      body, //comment body to include in the comments array in backend
+      uid,
+      body,
       // date: is set in Server
     });
 
-    // clearing comments data so it does not stack & have key errors
-    await setComments([]);
-    console.log(comments);
-
-    // Getting tweet from server after updating the Comments
-    const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);
-    const tweetData = data.data;
-    console.log(tweetData);
-
-    tweetData.comments.forEach((comment) => {
-      setComments((comments) => [
-        ...comments,
-        {
-          _id: comment._id,
-          tweetId: comment.tweetId,
-          name: comment.name,
-          username: comment.username,
-          date: comment.date,
-          body: comment.body,
-          likes: comment.likes,
-        },
-      ]);
-    });
-    console.log(comments);
+    // adding new comment to frontend after creating it in backend, so it wont have to fetch server again
+    const newComments = JSON.parse(JSON.stringify(comments));
+    console.log(newComment.data);
+    newComments.push(newComment.data);
+    setComments(newComments);
   };
 
   return (
@@ -84,13 +68,7 @@ const MakeComment = ({ tweetId }) => {
         <DialogTitle id="form-dialog-title">Make A Comment</DialogTitle>
         <DialogContent style={{ minWidth: 600, minHeight: 70 }}>
           <TextField
-            margin="dense"
-            id="name"
-            fullWidth
-            placeholder="Name"
-            onChange={(e) => setCommenter(e.target.value)}
-          />
-          <TextField
+            autoFocus
             margin="dense"
             id="comment"
             fullWidth

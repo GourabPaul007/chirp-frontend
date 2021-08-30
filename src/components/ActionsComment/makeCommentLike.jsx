@@ -6,6 +6,7 @@ import { IconButton, makeStyles, Typography, Button } from "@material-ui/core";
 import axios from "axios";
 import { CommentsContext } from "../../contexts/commentsContext";
 import { TweetContext } from "../../contexts/tweetContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const useStyles = makeStyles({
   likeButton: {
@@ -30,24 +31,22 @@ const MakeCommentLike = ({ tweetId, comment }) => {
   const [comments, setComments] = useContext(CommentsContext);
   const [tweet, setTweet] = useContext(TweetContext);
   // const [comment, setComment] = useContext(CommentContext);
+  const [profile, setProfile] = useContext(ProfileContext);
 
-  const [liked, setLiked] = useState(comment.likes.includes("paul"));
+  const [liked, setLiked] = useState(comment.likes.includes(profile.uid));
 
-  // useEffect to set liked = true if liked by user at render
+  // useEffect to set liked or not by user at render
   useEffect(async () => {
     const data = await axios.get(`http://localhost:5000/api/comments/${comment._id}/likes`);
     const likesArray = data.data;
-    setLiked(likesArray.includes("paul"));
-  }, []);
+    setLiked(likesArray.includes(profile.uid));
+  }, [profile]);
 
   const handleLike = async () => {
     const url = `http://localhost:5000/api/comments/${comment._id}/updateCommentLikes`;
-    const id = tweetId;
-    const name = "paul";
-    await axios.post(url, {
-      // id, //tweetId to check on backend if it matches in database
-      name, //name to include in the likes array in backend
-    });
+    const uid = profile.uid;
+    //uid to include in the likes array in backend
+    await axios.post(url, { uid });
     setLiked(!liked);
 
     // deleting comments temporary because key overlap
@@ -58,17 +57,18 @@ const MakeCommentLike = ({ tweetId, comment }) => {
     const tweetData = data.data;
 
     // getting comments from tweet data and setting comments data after updating
-    tweetData.comments.forEach((commentData) => {
+    tweetData.comments.forEach((c) => {
       setComments((comments) => [
         ...comments,
         {
-          _id: commentData._id,
-          tweetId: commentData.tweetId,
-          name: commentData.name,
-          username: commentData.username,
-          date: commentData.date,
-          body: commentData.body,
-          likes: commentData.likes,
+          _id: c._id,
+          tweetId: c.tweetId,
+          name: c.name,
+          authorID: c.authorID,
+          username: c.username,
+          date: c.date,
+          body: c.body,
+          likes: c.likes,
         },
       ]);
     });

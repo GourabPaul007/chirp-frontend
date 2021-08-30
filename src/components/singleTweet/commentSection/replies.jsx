@@ -19,7 +19,11 @@ import MakeReplySend from "../../ActionsReply/makeReplySend";
 
 import { RepliesContext } from "../../../contexts/repliesContext";
 import timeConverter from "../../../utils/timeConverter";
-import MoreOptions from "../../ActionsReply/moreReplyOptions";
+import MoreReplyOptions from "../../ActionsReply/moreReplyOptions";
+
+// Utils Import
+import getRandomColor from "../../../utils/getRandomThemeColor";
+import getUser from "../../../utils/getUserUtils";
 
 const useStyles = makeStyles({
   commentBox: {
@@ -76,6 +80,9 @@ const useStyles = makeStyles({
     fontSize: 18,
     color: "#6e767d",
   },
+  avatar: {
+    backgroundColor: `${getRandomColor()}`,
+  },
 });
 
 const ReplySection = ({ tweetId, comment }) => {
@@ -95,15 +102,15 @@ const ReplySection = ({ tweetId, comment }) => {
                 marginTop: 0,
                 marginBottom: 0,
               }}
-              avatar={<Avatar className={classes.avatar}>G</Avatar>}
+              avatar={<Avatar className={classes.avatar}>{reply.name[0]}</Avatar>}
               // More Options
-              action={<MoreOptions reply={reply} />}
+              action={<MoreReplyOptions reply={reply} />}
               title={
                 <Grid container>
                   <Grid item>
                     <Link
                       target="_blank"
-                      href="https://www.google.com"
+                      href={`/user-profiles/${reply.username}`}
                       style={{ color: "#D9D9D9" }}
                     >
                       <Typography variant="h5" className={classes.replyTitle} component="h3">

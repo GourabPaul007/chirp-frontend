@@ -1,18 +1,5 @@
-import {
-  Container,
-  Grid,
-  Card,
-  makeStyles,
-  CardContent,
-  CardActionArea,
-  Typography,
-  Avatar,
-  IconButton,
-  CardMedia,
-  Button,
-  Link,
-} from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import { Grid, Card, makeStyles, Typography, Avatar, Button, Link } from "@material-ui/core";
+import React, { useContext } from "react";
 import Banner from "../banner";
 
 import profilePicture from "../../assets/images/profile-picture.jpg";
@@ -37,7 +24,6 @@ export default function ProfilePage() {
   const classes = useStyles();
 
   const [profile, setProfile] = useContext(ProfileContext);
-  console.log(profile);
   const { currentUser } = useAuth();
 
   const msg = "";

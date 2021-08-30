@@ -10,6 +10,7 @@ export const CommentsProvider = (props) => {
       tweetId: null,
       name: null,
       username: null,
+      authorID: null,
       date: null,
       body: null,
       likes: null,

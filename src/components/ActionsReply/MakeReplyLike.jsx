@@ -7,6 +7,7 @@ import axios from "axios";
 import { CommentsContext } from "../../contexts/commentsContext";
 import { TweetContext } from "../../contexts/tweetContext";
 import { RepliesContext } from "../../contexts/repliesContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const useStyles = makeStyles({
   likeButton: {
@@ -29,47 +30,48 @@ const MakeReplyLike = ({ reply, tweetId, comment }) => {
   const classes = useStyles();
 
   const [replies, setReplies] = useContext(RepliesContext);
-  const [tweet, setTweet] = useContext(TweetContext);
-  // const [comment, setComment] = useContext(CommentContext);
+  const [profile, setProfile] = useContext(ProfileContext);
 
-  const [liked, setLiked] = useState(reply.likes.includes("paul"));
+  const [liked, setLiked] = useState(reply.likes.includes(profile.uid));
 
   // useEffect to set liked = true if liked by user at render
   useEffect(async () => {
     const data = await axios.get(`http://localhost:5000/api/replies/${tweetId}/${reply._id}/likes`);
     const likesArray = data.data;
-    setLiked(likesArray.includes("paul"));
-  }, []);
+    setLiked(likesArray.includes(profile.uid));
+  }, [profile]);
 
   const handleLike = async () => {
     const url = `http://localhost:5000/api/replies/${tweetId}/${reply._id}/updateReplyLikes`;
     const _id = tweetId;
-    const name = "paul";
+    const uid = profile.uid;
     await axios.post(url, {
       _id, //tweetId to check on backend if it matches in database
-      name, //name to include in the likes array in backend
+      uid, //name to include in the likes array in backend
     });
     setLiked(!liked);
 
     // deleting replies temporary because key overlap
-    // setReplies([{}]);
+    setReplies([{}]);
 
     // Getting tweet from server after updating the tweet
     const data = await axios.get(`http://localhost:5000/api/tweets/${tweetId}`);
     const tweetData = data.data;
 
     // getting replies from tweet data and setting replies data after updating
-    tweetData.replies.forEach((replyData) => {
+    tweetData.replies.forEach((r) => {
       setReplies((replies) => [
         ...replies,
         {
-          _id: replyData._id,
-          tweetId: replyData.tweetId,
-          name: replyData.name,
-          username: replyData.username,
-          date: replyData.date,
-          body: replyData.body,
-          likes: replyData.likes,
+          _id: r._id,
+          tweetId: r.tweetId,
+          commentId: r.commentId,
+          name: r.name,
+          username: r.username,
+          authorID: r.authorID,
+          date: r.date,
+          body: r.body,
+          likes: r.likes,
         },
       ]);
     });

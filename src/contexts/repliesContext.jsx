@@ -11,6 +11,7 @@ export const RepliesProvider = (props) => {
       commentId: null,
       name: null,
       username: null,
+      authorID: null,
       date: null,
       body: null,
       likes: null,

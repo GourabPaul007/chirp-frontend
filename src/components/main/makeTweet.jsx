@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   CardActions,
@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core/";
 
 import axios from "axios";
+import { useAuth } from "../../contexts/authContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,23 +63,23 @@ const MakeTweet = () => {
   const [name, setName] = useState("paul");
   const [body, setBody] = useState("");
 
+  const [profile, setProfile] = useContext(ProfileContext);
+
+  const { currentUser } = useAuth();
+
   const handleClick = async (e) => {
     e.preventDefault();
-    // setName("paul");
-    const username = name; //have to delete later
-    const likes = [];
-    const saves = [];
-    const comments = [];
+    const name = profile.name;
+    const username = profile.username;
+    const uid = profile.uid;
 
     // Sending Post request to api to post tweet
     if (name && body) {
       await axios.post("http://localhost:5000/api/tweets/new", {
         name,
         username,
+        uid,
         body,
-        // likes,
-        // saves,
-        comments,
       });
     } else {
       console.log("please provide tweet name & body");
@@ -99,7 +101,7 @@ const MakeTweet = () => {
             <Grid item xs={12}>
               <form noValidate autoComplete="off" onSubmit={handleClick}>
                 <Grid item>
-                  <Grid item>
+                  {/* <Grid item>
                     <TextField
                       id="filled-basic"
                       variant="standard"
@@ -108,7 +110,7 @@ const MakeTweet = () => {
                       margin="none"
                       onChange={(e) => setName(e.target.value)}
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item style={{ marginTop: 20 }}>
                     <TextField
                       id="filled-basic"

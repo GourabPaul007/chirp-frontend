@@ -4,6 +4,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
 import { TweetContext } from "../../contexts/tweetContext";
 import { CommentsContext } from "../../contexts/commentsContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const useStyles = makeStyles({
   select: {
@@ -20,24 +21,27 @@ const useStyles = makeStyles({
     textTransform: "none",
     borderRadius: 0,
     "&:hover": {
-      background: "#d50000",
+      // background: "#d50000",
     },
     padding: 8,
+    minWidth: 120,
   },
   reportButton: {
     textTransform: "none",
     borderRadius: 0,
     "&:hover": {
-      background: "#FF5722",
+      // background: "#FF5722",
     },
     padding: 8,
+    minWidth: 120,
   },
 });
 
-const MoreCommentOptions = ({ commentId }) => {
+const MoreCommentOptions = ({ commentId, authorID }) => {
   const classes = useStyles();
 
   const [comments, setComments] = useContext(CommentsContext);
+  const [profile, setProfile] = useContext(ProfileContext);
 
   const indexOfObject = (newComments, commentId) => {
     for (let i = 0; i < newComments.length; i++) {
@@ -56,9 +60,7 @@ const MoreCommentOptions = ({ commentId }) => {
 
     // need to remove the reply that deleted from local state
     const newComments = JSON.parse(JSON.stringify(comments));
-    console.log(newComments);
     newComments.splice(indexOfObject(newComments, commentId), 1);
-    console.log(newComments);
     setComments(newComments);
   };
 
@@ -73,16 +75,18 @@ const MoreCommentOptions = ({ commentId }) => {
         style={{ marginRight: 12, marginTop: 6 }}
         MenuProps={{ classes: { paper: classes.select } }}
       >
-        <Grid container spacing={0}>
-          <Grid item xs={12}>
-            <Button
-              fullWidth
-              className={classes.deleteButton}
-              onClick={() => handleDeleteComment(commentId)}
-            >
-              Delete
-            </Button>
-          </Grid>
+        <Grid container spacing={0} direction="column">
+          {profile.uid === authorID ? (
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                className={classes.deleteButton}
+                onClick={() => handleDeleteComment(commentId)}
+              >
+                Delete
+              </Button>
+            </Grid>
+          ) : null}
           <Grid item xs={12}>
             <Button className={classes.reportButton} fullWidth>
               Report

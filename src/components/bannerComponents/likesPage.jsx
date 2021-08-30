@@ -11,7 +11,7 @@ import {
   Avatar,
   IconButton,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
@@ -25,6 +25,8 @@ import timeConverter from "../../utils/timeConverter";
 import axios from "axios";
 import { red } from "@material-ui/core/colors";
 import Banner from "../banner";
+import { ProfileContext } from "../../contexts/ProfileContext";
+import MoreBannerTweetOptions from "./MoreBannerTweetOptions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -97,6 +99,7 @@ const BookmarksPage = () => {
       _id: null,
       name: null,
       username: null,
+      authorID: null,
       body: null,
       date: null,
       likes: [],
@@ -104,21 +107,27 @@ const BookmarksPage = () => {
       comments: [],
     },
   ]);
+  const [profile, setProfile] = useContext(ProfileContext);
+
+  const uid = profile.uid;
+  console.log(uid);
 
   useEffect(async () => {
-    const user = "paul";
-    const url = `http://localhost:5000/api/banner/${user}/likes`;
+    const url = `http://localhost:5000/api/banner/${uid}/likes`;
     const data = await axios.get(url);
-
-    for (let i = 0; i < data.data.length; i++) {
+    console.log(uid);
+    console.log(data.data);
+    // for (let i = 0; i < data.data.length; i++) {
+    data.data.forEach((t) => {
       //t is a tweet object i.e. its the whole tweet
-      let t = data.data[i];
+      // let t = data.data[i];
       setTweets((tweets) => [
         ...tweets,
         {
           _id: t._id,
           name: t.name,
           username: t.username,
+          authorID: t.authorID,
           body: t.body,
           date: t.date,
           likes: t.likes,
@@ -126,8 +135,9 @@ const BookmarksPage = () => {
           comments: t.comments,
         },
       ]);
-    }
-  }, []);
+    });
+    // }
+  }, [profile]);
 
   return (
     <>
@@ -171,9 +181,12 @@ const BookmarksPage = () => {
                       </Avatar>
                     }
                     action={
-                      <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                      </IconButton>
+                      <MoreBannerTweetOptions
+                        tweetId={tweet._id}
+                        tweets={tweets}
+                        setTweets={setTweets}
+                        authorID={tweet.authorID}
+                      />
                     }
                     title={
                       <Typography variant="h5" className={classes.title} component="h3">

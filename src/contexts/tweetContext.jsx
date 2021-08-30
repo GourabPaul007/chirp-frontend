@@ -9,6 +9,7 @@ export const TweetProvider = (props) => {
     _id: null,
     name: null,
     username: null,
+    authorID: null,
     body: null,
     likes: [],
     saves: [],

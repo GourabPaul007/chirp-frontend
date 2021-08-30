@@ -8,9 +8,11 @@ import { TweetContext } from "../../../contexts/tweetContext";
 import timeConverter from "../../../utils/timeConverter";
 import DeleteTweet from "../../ActionsTweet/moreTweetOptions";
 
+import getRandomColor from "../../../utils/getRandomThemeColor";
+
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: `${getRandomColor()}`,
   },
   title: {
     fontWeight: "bold",
@@ -49,14 +51,18 @@ const TweetHeader = ({ tweetId }) => {
         style={{ paddingBottom: 0, paddingTop: 0 }}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            G
+            {tweet.name[0]}
           </Avatar>
         }
         action={<DeleteTweet tweetId={tweetId} />}
         title={
           <Grid container>
             <Grid item>
-              <Link target="_blank" href="https://www.google.com" style={{ color: "#D9D9D9" }}>
+              <Link
+                target="_blank"
+                href={`/user-profiles/${tweet.username}`}
+                style={{ color: "#D9D9D9" }}
+              >
                 <Typography variant="h5" className={classes.title} component="h3">
                   {tweet.name}
                 </Typography>

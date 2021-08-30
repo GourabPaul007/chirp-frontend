@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 export default function UpdateProfile() {
   const classes = useStyles();
 
-  const usernameRef = useRef();
+  // const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
@@ -117,7 +117,7 @@ export default function UpdateProfile() {
         ) : null}
         <form className={classes.form} noValidate onSubmit={handleUpdateProfile}>
           {/* Username TextField */}
-          <TextField
+          {/* <TextField
             variant="filled"
             margin="normal"
             fullWidth
@@ -125,7 +125,7 @@ export default function UpdateProfile() {
             type="username"
             inputRef={usernameRef}
             defaultValue={currentUser.username}
-          />
+          /> */}
           {/* Email TextField */}
           <TextField
             variant="filled"

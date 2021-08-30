@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   makeStyles,
   Typography,
-  IconButton,
   Avatar,
   CardHeader,
   Card,
@@ -14,14 +13,15 @@ import {
   Link,
 } from "@material-ui/core";
 
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-
 import MakeComment from "../ActionsTweet/makeComment";
 import MakeSave from "../ActionsTweet/makeSave";
 import MakeLike from "../ActionsTweet/makeLike";
 import MakeSend from "../ActionsTweet/makeSend";
 
+import MoreNewsFeedOptions from "./newsFeed/MoreNewsFeedOptions";
+
 import timeConverter from "../../utils/timeConverter";
+import getRandomColor from "../../utils/getRandomThemeColor";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,9 +75,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     color: "#D9D9D9",
   },
+  avatar: {
+    backgroundColor: `${getRandomColor()}`,
+  },
 }));
 
-const NewsFeed = ({ tweets }) => {
+const NewsFeed = ({ tweets, setTweets }) => {
   const classes = useStyles();
   return (
     <>
@@ -88,13 +91,16 @@ const NewsFeed = ({ tweets }) => {
               <CardHeader
                 avatar={
                   <Avatar aria-label="recipe" className={classes.avatar}>
-                    G
+                    {tweet.name[0]}
                   </Avatar>
                 }
                 action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
+                  <MoreNewsFeedOptions
+                    tweetId={tweet._id}
+                    tweets={tweets}
+                    setTweets={setTweets}
+                    authorID={tweet.authorID}
+                  />
                 }
                 title={
                   <Grid container>
@@ -140,7 +146,8 @@ const NewsFeed = ({ tweets }) => {
                     variant="h6"
                     color="textSecondary"
                     component="p"
-                    style={{ textAlign: "left", color: "#fff" }}
+                    style={{ display: "block", textAlign: "left", color: "#fff" }}
+                    // display="inline"
                   >
                     {tweet.body}
                   </Typography>

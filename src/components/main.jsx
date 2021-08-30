@@ -11,6 +11,7 @@ const Main = (props) => {
       _id: null,
       name: null,
       username: null,
+      authorID: null,
       body: null,
       date: null,
       likes: [],
@@ -22,23 +23,22 @@ const Main = (props) => {
   useEffect(async () => {
     const URL = "http://localhost:5000/api/tweets";
     const data = await axios.get(URL);
-    for (let i = 0; i < data.data.length; i++) {
-      //element is a tweet object i.e. its the whole tweet
-      let element = data.data[i];
+    data.data.forEach((t) => {
       setTweets((tweets) => [
         ...tweets,
         {
-          _id: element._id,
-          name: element.name,
-          username: element.username,
-          body: element.body,
-          date: element.date,
-          likes: element.likes,
-          saves: element.saves,
-          comments: element.comments,
+          _id: t._id,
+          name: t.name,
+          username: t.username,
+          authorID: t.authorID,
+          body: t.body,
+          date: t.date,
+          likes: t.likes,
+          saves: t.saves,
+          comments: t.comments,
         },
       ]);
-    }
+    });
   }, []);
 
   return (
@@ -51,7 +51,7 @@ const Main = (props) => {
         {/* <Main /> */}
         <div style={{ margin: 0 }}>
           <MakeTweet />
-          <NewsFeed tweets={tweets} />
+          <NewsFeed tweets={tweets} setTweets={setTweets} />
         </div>
       </Grid>
     </>
